@@ -8,6 +8,7 @@
       console.log('App Show')
     },
     onHide: function() {
+
       console.log('App Hide')
     }
   }
@@ -15,7 +16,7 @@
 
 <style lang="scss">
   /*每个页面公共css */
-  @import '@/uni_modules/uni-scss/index.scss';
+  // @import '@/uni_modules/uni-scss/index.scss';
 
   /* #ifndef APP-NVUE */
   // @import '@/static/customicons.css';

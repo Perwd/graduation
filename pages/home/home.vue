@@ -29,18 +29,19 @@
       <!-- 楼层标题 -->
       <image :src="item.floor_title.image_src" class="floor-title"></image>
       <!-- 楼层图片区域 -->
+
       <view class="floor-img-box">
         <!-- 左侧大图片的盒子 -->
-        <view class="left-img-box">
+        <navigator class="left-img-box" @click="cilckIM(item.product_list[0].url)" :url="item.product_list[0].url">
           <image :src="item.product_list[0].image_src" :style="{width: item.product_list[0].image_width + 'rpx'}"
             mode="widthFix"></image>
-        </view>
+        </navigator>
         <!-- 右侧 4 个小图片的盒子 -->
         <view class="right-img-box">
-          <view class="right-img-item" v-for="(item2, i2) in item.product_list" :key="i2">
+          <navigator class="right-img-item" v-for="(item2, i2) in item.product_list" :key="i2" :url="item2.url">
             <image v-if="i2 !== 0" :src="item2.image_src" mode="widthFix" :style="{width: item2.image_width + 'rpx'}">
             </image>
-          </view>
+          </navigator>
         </view>
       </view>
 
@@ -55,7 +56,7 @@
   } from 'vue'
   import {
     onLoad,
-    onShow
+
   } from '@dcloudio/uni-app'
 
   const swiperList = ref([])
@@ -67,22 +68,20 @@
       data: res
     } = await uni.$http.get('/api/public/v1/home/swiperdata')
     // console.log(res)
-    // 3.2 请求失败
+
     if (res.meta.status !== 200) return uni.$showMsg()
-    // 3.3 请求成功，为 data 中的数据赋值
 
     swiperList.value = res.message
-    // console.log(swiperList.value)
-    // console.log(res.message)
   }
+
   const getNavList = async () => {
     const {
       data: res
     } = await uni.$http.get('/api/public/v1/home/catitems')
     // console.log(res)
-    // 3.2 请求失败
+
     if (res.meta.status !== 200) return uni.$showMsg()
-    // 3.3 请求成功，为 data 中的数据赋值
+
     navList.value = res.message
 
   }
@@ -92,16 +91,38 @@
     } = await uni.$http.get('/api/public/v1/home/floordata')
     // console.log(res)
 
-    // 3.2 请求失败
     if (res.meta.status !== 200) return uni.$showMsg()
 
-    // 3.3 请求成功，为 data 中的数据赋值
-    floorList.value = res.message
 
+    // 处理 URL 地址
+    res.message.forEach(floor => {
+      floor.product_list.forEach(prod => {
+        prod.url = '/subpkg/goods_list/goods_list?' + prod.navigator_url.split('?')[1]
+      })
+    })
+    floorList.value = res.message
+    // console.log(floorList.value)
   }
+
+
+  const navClickHandler = (item) => {
+    // console.log(item)
+    if (item.name === '分类') {
+      uni.switchTab({
+        url: '/pages/cate/cate'
+      })
+    }
+  }
+
+
+  const cilckIM = (item) => {
+    console.log(item)
+  }
+
   onLoad(() => {
-    // 业务逻辑
+
     // console.log(optios)
+
     getSwiperList()
     getNavList()
     getFloorList()
@@ -131,10 +152,7 @@
     }
   }
 
-  // .floor-list {
-  //   .floor-item {
-  //   }
-  // }
+
   .floor-title {
     height: 60rpx;
     width: 100%;
