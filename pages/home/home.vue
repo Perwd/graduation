@@ -32,7 +32,7 @@
 
       <view class="floor-img-box">
         <!-- 左侧大图片的盒子 -->
-        <navigator class="left-img-box" @click="cilckIM(item.product_list[0].url)" :url="item.product_list[0].url">
+        <navigator class="left-img-box" :url="item.product_list[0].url">
           <image :src="item.product_list[0].image_src" :style="{width: item.product_list[0].image_width + 'rpx'}"
             mode="widthFix"></image>
         </navigator>

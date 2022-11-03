@@ -5,19 +5,18 @@
 
 </template>
 
-<script setup>
-  import {
-    ref,
-    toRefs,
-    reactive
-  } from 'vue'
+<script setup lang="ts">
+  // import {
+  //   ref,
+  //   toRefs,
+  //   reactive
+  // } from 'vue'
   import {
     onLoad,
   } from '@dcloudio/uni-app'
 
-  onLoad(() => {
-    // console.log(optios)
-
+  onLoad((option: any) => {
+    console.log(option)
   })
 </script>
 
