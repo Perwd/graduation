@@ -1,0 +1,87 @@
+<template>
+	<view class="my-search-container " :style="`background-color: ${props.bColor};`" @click="clickMySearch()">
+		<view class="my-search-box" :style="{'border-radius':props.raius +'px'}">
+			<uni-icons type="search" size="17"></uni-icons>
+			<text class="placeholder">搜索</text>
+		</view>
+	</view>
+</template>
+
+<script setup lang="ts">
+	import {
+		// ref,
+		// reactive,
+		// toRefs,
+		// onBeforeMount,
+		// onMounted,
+		// onUpdated,
+		// onBeforeUpdate,
+		// onBeforeUnmount,
+		// onUnmounted,
+		// computed,
+		// watch,
+	} from 'vue'
+
+	import {
+		// onLoad,
+		onShow,
+		// onPullDownRefresh,
+		// onReachBottom,
+	} from '@dcloudio/uni-app'
+
+	// const raius = ref < Number > (0)
+	const props = defineProps({
+		bColor: {
+			type: String,
+			default: '#c00000'
+		},
+		raius: {
+			type: Number,
+			default: 18
+		}
+	})
+	const emit = defineEmits(['mySearchClick'])
+
+
+	// defineExpose({
+	// 	clickMySearch,
+	// })
+
+
+	function clickMySearch() {
+		emit("mySearchClick", '2');
+		// console.log(name)
+		console.log('点击')
+
+	}
+
+	onShow(() => {
+		console.log(1)
+
+	})
+</script>
+
+<style lang="scss">
+	.my-search-container {
+		// background-color: color;
+		height: 50px;
+		padding: 0 10px;
+		display: flex;
+		align-items: center;
+	}
+
+	.my-search-box {
+		height: 36px;
+		background-color: #ffffff;
+		// border-radius: 15px;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.placeholder {
+			font-size: 15px;
+			margin-left: 5px;
+		}
+	}
+</style>
