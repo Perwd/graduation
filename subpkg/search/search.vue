@@ -1,11 +1,32 @@
 <template>
 	<view class="search-box">
 
-		<uni-search-bar @input="input" placeholder="自定1" :radius="100" cancelButton="none">
+		<uni-search-bar @input="input" focus placeholder="自定1" :radius="100" cancelButton="none">
 
 
 		</uni-search-bar>
 
+		<!-- 搜索建议列表 -->
+		<view class="sugg-list" v-if="data.searchResults.length!==0">
+			<view class="sugg-item" v-for="(item, i) in data.searchResults" :key="i" @click="gotoDetail(item.goods_id)">
+				<view class="goods-name">{{item.goods_name}}</view>
+				<uni-icons type="arrowright" size="16"></uni-icons>
+			</view>
+		</view>
+
+		<!-- 搜索历史 -->
+		<view class="history-box" v-else>
+			<!-- 标题区域 -->
+			<view class="history-title">
+				<text>搜索历史</text>
+				<uni-icons type="trash" size="17"></uni-icons>
+			</view>
+			<!-- 列表区域 -->
+			<view class="history-list">
+
+				<uni-tag :text="item" v-for="(item, i) in historyList" :key="i"></uni-tag>
+			</view>
+		</view>
 
 
 	</view>
@@ -14,8 +35,8 @@
 
 <script setup lang="ts">
 	import {
-		// ref,
-		// reactive,
+		ref,
+		reactive,
 		// toRefs,
 		// onBeforeMount,
 		// onMounted,
@@ -25,6 +46,7 @@
 		// onUnmounted,
 		// computed,
 		// watch,
+		nextTick
 	} from "vue";
 	import {
 		onLoad,
@@ -33,15 +55,68 @@
 		// onReachBottom,
 	} from "@dcloudio/uni-app";
 
-	const search = () => {
-		console.log('s')
+	type Data2 = {
+		timeout ? : any,
+		searchResults ? : Array < String >
 	}
 
+	const str = ref('')
+
+	const historyList = ref(['a', 'app', 'apple'])
+
+	const data = reactive < Data2 > ({
+		timeout: null,
+		searchResults: []
+	});
+
 	const input = (e) => {
-		console.log(e)
+		clearTimeout(data.timeout) //清楚定时器
+		data.timeout = setTimeout(() => {
+			console.log(e)
+			str.value = e
+
+			getSearchList()
+		}, 500);
 	}
-	onLoad((option) => {
-		console.log(option)
+
+
+
+
+
+
+	const getSearchList = async () => {
+		if (str.value === '') return data.searchResults = []
+		// 发起请求，获取搜索建议列表
+		const {
+			data: res
+		} = await (uni as any).$http.get('/api/public/v1/goods/qsearch', {
+			query: str.value
+		})
+		if (res.meta.status !== 200) return (uni as any).$showMsg()
+		data.searchResults = res.message
+		console.log(data.searchResults)
+	}
+
+
+	function gotoDetail(goods_id: string) {
+		uni.navigateTo({
+			// 指定详情页面的 URL 地址，并传递 goods_id 参数
+			url: '/subpkg/goods_detail/goods_detail?goods_id=' + goods_id
+		})
+
+	}
+
+
+
+
+	// function timeOut() {
+	// }
+	// 异步使用
+	onLoad(async () => {
+
+		await nextTick()
+		console.log(historyList.value)
+
 	})
 </script>
 
@@ -63,5 +138,52 @@
 		padding: 16rpx;
 		/* 将默认的 #FFFFFF 改为 #C00000 */
 		background-color: #c00000;
+	}
+
+	.sugg-list {
+		padding: 0 5px;
+
+		.sugg-item {
+			font-size: 12px;
+			padding: 13px 0;
+			border-bottom: 1px solid #efefef;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.goods-name {
+				// 文字不允许换行（单行文本）
+				white-space: nowrap;
+				// 溢出部分隐藏
+				overflow: hidden;
+				// 文本溢出后，使用 ... 代替
+				text-overflow: ellipsis;
+				margin-right: 3px;
+			}
+		}
+	}
+
+	.history-box {
+		padding: 0 5px;
+
+		.history-title {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: 40px;
+			font-size: 13px;
+			border-bottom: 1px solid #efefef;
+		}
+
+		.history-list {
+			display: flex;
+			flex-wrap: wrap;
+
+			.uni-tag {
+
+				margin-top: 5px;
+				margin-right: 5px;
+			}
+		}
 	}
 </style>
