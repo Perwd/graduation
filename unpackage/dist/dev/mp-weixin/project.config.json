@@ -2,7 +2,6 @@
   "appid": "wx78e9f1089b48ef39",
   "compileType": "miniprogram",
   "libVersion": "2.27.1",
-  "isGameTourist": false,
   "packOptions": {
     "ignore": [],
     "include": []

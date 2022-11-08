@@ -24,7 +24,7 @@
       <!-- 列表区域 -->
       <view class="history-list">
 
-        <uni-tag :text="item" v-for="(item, i) in historys" :key="i"></uni-tag>
+        <uni-tag inverted :text="item" v-for="(item, i) in historys" :key="i">1</uni-tag>
       </view>
     </view>
 
@@ -62,7 +62,8 @@
 
   const str = ref('')
 
-  const historyList = ref(['a', 'app', 'apple'])
+  const historyList = ref < String[] > (['a', 'app', 'apple'])
+  // const historyList = ref(['a', 'app', 'apple'])
   const historys = computed(() => {
     return [...historyList.value].reverse()
   })
@@ -115,18 +116,19 @@
 
   // }
 
-  // 保存搜索关键词为历史记录
+  // 保存搜索关键词为历史记录 
   function saveSearchHistory() {
     // this.historyList.push(this.kw)
 
     // 1. 将 Array 数组转化为 Set 对象
     const set = new Set(historyList.value)
     // 2. 调用 Set 对象的 delete 方法，移除对应的元素
-    set.delete(this.kw)
+    set.delete(str.value)
     // 3. 调用 Set 对象的 add 方法，向 Set 中添加元素
-    set.add(this.kw)
+    set.add(str.value)
     // 4. 将 Set 对象转化为 Array 数组
     historyList.value = Array.from(set)
+    uni.setStorageSync('str', JSON.stringify(historyList.value))
   }
 
 
@@ -139,7 +141,9 @@
 
     await nextTick()
     console.log(historyList.value)
+    historyList.value = [JSON.stringify(uni.getStorageSync('str'))] || []
 
+    console.log(historyList.value)
   })
 </script>
 
