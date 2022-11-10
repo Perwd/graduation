@@ -1,9 +1,14 @@
 <template>
 	<view>
-		goods list
-	</view>
+		<view class="goods-list">
+			<block v-for="(goods, i) in goodsList" :key="i">
 
+				<my-goods :goods="goods"></my-goods>
+			</block>
+		</view>
+	</view>
 </template>
+
 
 <script setup lang="ts">
 	import {
@@ -14,14 +19,16 @@
 	} from 'vue'
 	import {
 		onLoad,
+		onReachBottom,
+		onPullDownRefresh
 	} from '@dcloudio/uni-app'
 
 	type ValueObject = {
-		value ? : Number,
-		query ? : String,
-		cid ? : String,
-		pageNum ? : Number,
-		pageSize ? : Number,
+		value ? : number,
+		query ? : string,
+		cid ? : string,
+		pageNum ? : number,
+		pageSize ? : number,
 	}
 	// 通过接口定义对象所具有的属性，
 	//通过接口声明对象后，所具有的属性值一目了然
@@ -42,34 +49,31 @@
 
 	const imgList = ref < string[] > ([]);
 
+	// 节流
+	const isLoad = ref < boolean > (false);
 
-	// function getGoodsList() {
-	// 	const {
-	// 		data: res
-	// 	} = await (uni as any).$http.get('/api/public/v1/goods/search', queryObj)
-	// 	console.log(1)
-	// 	console.log(res)
-	// 	console.log(res.meta)
-	// 	if (res.meta.status !== 200) return (uni as any).$showMsg()
-	// 	// 为数据赋值
-	// 	goodsList.value = res.message.goods
-	// 	total.value = res.message.total
 
-	// }
 
-	const getGood = async () => {
+
+
+	const getGood = async (cb ? : Function) => {
+
+		cb && cb()
+		isLoad.value = false
 		await (uni as any).$http.get('/api/public/v1/goods/search', queryObj.value).then((res: any) => {
-			console.log(2)
-			console.log(res)
+			// console.log(2)
+			// console.log(res)
 			if (res.data.meta.status !== 200) return (uni as any).$showMsg()
 			// 为数据赋值
-			goodsList.value = res.data.message.goods
+			// console.log(res.data.message.goods)
+			goodsList.value = [...goodsList.value, ...res.data.message.goods]
 			total.value = res.data.message.total
+			isLoad.value = true
 		})
 	}
 	onLoad((option: any) => {
-		console.log(1)
-		console.log(option)
+		// console.log(1)
+		// console.log(option)
 		cid.value = option.cid
 
 
@@ -83,8 +87,32 @@
 		getGood()
 
 	})
+
+	onReachBottom(() => {
+		// console.log('触发')
+
+		if (queryObj.pageNum * queryObj.pageSize >= total.value) {
+			return (uni as any).$showMsg('数据加载完毕，已是最后一页')
+		}
+
+		if (isLoad.value) {
+			getGood()
+			queryObj.pageNum += 1
+		}
+	})
+	onPullDownRefresh(() => {
+
+		queryObj.pageNum = 1
+		total.value = 0
+		isLoad.value = false
+
+		goodsList.value = []
+
+		getGood(() => uni.stopPullDownRefresh())
+	})
 </script>
 
 <style lang="scss">
+
 
 </style>
