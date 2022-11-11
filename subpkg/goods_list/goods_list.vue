@@ -1,10 +1,10 @@
 <template>
 	<view>
 		<view class="goods-list">
-			<block v-for="(goods, i) in goodsList" :key="i">
+			<view v-for="(goods, i) in goodsList" :key="i" @click="gotoDetail(goods)">
 
 				<my-goods :goods="goods"></my-goods>
-			</block>
+			</view>
 		</view>
 	</view>
 </template>
@@ -54,7 +54,12 @@
 
 
 
-
+	const gotoDetail = (item) => {
+		console.log(item)
+		uni.navigateTo({
+			url: '/subpkg/goods_detail/goods_detail?goods_id=' + item.goods_id
+		})
+	}
 
 	const getGood = async (cb ? : Function) => {
 

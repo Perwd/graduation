@@ -25,7 +25,7 @@
 	// } from 'vue'
 	import {
 		onLoad,
-		onReachBottom
+		// onReachBottom
 	} from '@dcloudio/uni-app'
 
 

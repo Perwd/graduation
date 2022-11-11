@@ -147,5 +147,6 @@
   "bugs": {
     "url": "https://github.com/Perwd/uni-app-vue3-experiment/issues"
   },
-  "homepage": "https://github.com/Perwd/uni-app-vue3-experiment#readme"
+  "homepage": "https://github.com/Perwd/uni-app-vue3-experiment#readme",
+  "devDependencies": {}
 }
