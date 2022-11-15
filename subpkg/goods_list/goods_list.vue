@@ -32,7 +32,7 @@
 	}
 	// 通过接口定义对象所具有的属性，
 	//通过接口声明对象后，所具有的属性值一目了然
-	const cid2: ValueObject = Object.create(null);
+	// const cid2: ValueObject = Object.create(null);
 
 	const cid = ref < String > ()
 	const goodsList = ref([])
@@ -54,7 +54,7 @@
 
 
 
-	const gotoDetail = (item) => {
+	const gotoDetail = (item: any) => {
 		console.log(item)
 		uni.navigateTo({
 			url: '/subpkg/goods_detail/goods_detail?goods_id=' + item.goods_id

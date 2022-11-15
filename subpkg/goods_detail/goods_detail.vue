@@ -1,13 +1,19 @@
 <template>
 	<view>
-		detail
+		<!-- 轮播图区域 -->
+		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
+			<swiper-item v-for="(item, i) in goodsInfo.pics" :key="i">
+				<image :src="item.pics_big" @click="preview(i)"></image>
+			</swiper-item>
+		</swiper>
+
 	</view>
 </template>
 
 <script setup lang="ts">
 	import {
 		ref,
-		// reactive,
+		reactive,
 		// toRefs,
 		// reactive
 	} from 'vue'
@@ -16,8 +22,19 @@
 		// onReachBottom
 	} from '@dcloudio/uni-app'
 
-	const goodsInfo = ref < Object > ({})
+	let goodsInfo = reactive < Object > ({})
+	let goodsInfo2 = reactive < string > ('')
 
+	const preview = (i) => {
+		console.log(typeof i)
+		// 调用 uni.previewImage() 方法预览图片
+		uni.previewImage({
+			// 预览时，默认显示图片的索引
+			current: i,
+			// 所有图片 url 地址的数组
+			urls: goodsInfo.pics.map(x => x.pics_big)
+		})
+	}
 	const getGoodsDetail = async (goods_id: string) => {
 
 		const {
@@ -27,9 +44,13 @@
 		})
 		if (res.meta.status !== 200) return (uni as any).$showMsg()
 
-		goodsInfo.value = res.message
-		// console.log(1)
-		// console.log(goodsInfo.value)
+
+		goodsInfo = res.message
+
+		console.log(goodsInfo)
+		console.log(goodsInfo.pics)
+
+
 	}
 
 
@@ -45,5 +66,12 @@
 </script>
 
 <style lang="scss">
+	swiper {
+		height: 750rpx;
 
+		image {
+			width: 100%;
+			height: 100%;
+		}
+	}
 </style>
