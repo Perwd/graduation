@@ -1,5 +1,7 @@
 // 1. 导入 Vue 和 Vuex
-import Vue from 'vue'
+// import Vue from 'vue'
+// import { createSSRApp } from 'vue'
+// import * as Vue from 'vue'
 import Vuex from 'vuex'
 
 // 2. 将 Vuex 安装为 Vue 的插件

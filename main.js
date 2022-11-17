@@ -30,6 +30,9 @@ uni.$showMsg = function(title = '请求失败', duration = 1500) {
 // 引入文件不能放在vue后面,否则不会显示
 import './static/iconfont.css'
 
+import store from './store/store.js'
+
+
 // #ifndef VUE3
 import Vue from 'vue'
 import App from './App'
@@ -44,7 +47,8 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 const app = new Vue({
-	...App
+	...App,
+	store
 })
 app.$mount()
 // #endif
@@ -57,7 +61,8 @@ import {
 export function createApp() {
 	const app = createSSRApp(App)
 	return {
-		app
+		app,
+
 	}
 }
 // #endif

@@ -132,6 +132,7 @@
 
 		goods.value = goodsInfo.pics
 		console.log(goods.value)
+		console.log(goodsInfo.goods_introduce)
 	}
 
 	function collection(item: string) {
