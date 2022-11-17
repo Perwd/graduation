@@ -1,6 +1,9 @@
 <template>
 	<view>
 
+
+
+
 		<!-- 轮播图区域 -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
 			<swiper-item v-for="(item, i) in goods" :key="i">
@@ -8,20 +11,27 @@
 			</swiper-item>
 		</swiper>
 		<!-- 商品信息区域 -->
-		<view class="goods-info-box">
-			<!-- 商品价格 -->
+		<view class="goods-info-box" v-if="goodsInfo.goods_name">
+
 			<view class="price">￥{{goodsInfo.goods_price }}</view>
-			<!-- 信息主体区域 -->
+
 			<view class="goods-info-body">
-				<!-- 商品名称 -->
+
 				<view class="goods-name">{{goodsInfo.goods_name }}</view>
-				<!-- 收藏 -->
+
 				<view class="favi">
-					<uni-icons type="star" size="18" color="gray" :click="collection(goodsInfo)"></uni-icons>
+					<!--使用uni-app自带图标 -->
+					<!-- <uni-icons :type="starString" size="18" color="gray" @click="collection(starString)"></uni-icons> -->
+
+					<!-- 使用自定义图标 -->
+					<uni-icons v-if="showIcon" type="star" size="18" color="gray" @click="showIcon=!showIcon">
+					</uni-icons>
+					<span v-else class="iconfont icon-shoucang" @click="showIcon=!showIcon"></span>
+
 					<text>收藏</text>
 				</view>
 			</view>
-			<!-- 运费 -->
+
 			<view class="yf">快递：免运费</view>
 		</view>
 
@@ -46,6 +56,8 @@
 
 	let goodsInfo = reactive < Object > ({})
 	let goods = ref([])
+	let starString = ref('star')
+	let showIcon = ref(true)
 
 	function preview(i: any) {
 
@@ -73,7 +85,9 @@
 		if (res.meta.status !== 200) return (uni as any).$showMsg()
 
 		// 使用字符串的 replace() 方法，为 img 标签添加行内的 style 样式，从而解决图片底部空白间隙的问题
+		// 将webp替换成jpg，解决ios手机webp图片不显示的问题
 		res.message.goods_introduce = res.message.goods_introduce.replace(/<img /g, '<img style="display:block;" ')
+			.replace(/webp/g, 'jpg')
 
 		goodsInfo = res.message
 
@@ -84,8 +98,15 @@
 		console.log(goods.value)
 	}
 
-	function collection(item: object) {
+	function collection(item: string) {
 		console.log(item)
+		if (item === 'star') {
+			starString.value = 'star-filled'
+		} else {
+			starString.value = 'star'
+		}
+
+
 	}
 
 	onLoad((option) => {
@@ -137,7 +158,7 @@
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				border-left: 1px solid #efefef;
+				border-left: 1.5px solid #efefef;
 				color: gray;
 			}
 		}
