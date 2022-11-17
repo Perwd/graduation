@@ -1,20 +1,20 @@
 <template>
-  <view>
-
-  </view>
+	<view>
+		购物车
+	</view>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
+	export default {
+		data() {
+			return {
 
-      }
-    },
-    methods: {
+			}
+		},
+		methods: {
 
-    }
-  }
+		}
+	}
 </script>
 
 <style lang="scss">

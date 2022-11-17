@@ -39,6 +39,19 @@
 		<rich-text :nodes="goodsInfo.goods_introduce"></rich-text>
 
 
+		<!-- 商品导航组件 -->
+		<view class="goods_nav">
+			<!-- fill 控制右侧按钮的样式 -->
+			<!-- options 左侧按钮的配置项 -->
+			<!-- buttonGroup 右侧按钮的配置项 -->
+			<!-- click 左侧按钮的点击事件处理函数 -->
+			<!-- buttonClick 右侧按钮的点击事件处理函数 -->
+			<!-- <uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick(2)"
+				@buttonClick="buttonClick(1)" /> -->
+			<uni-goods-nav :options="options" :buttonGroup="buttonGroup" @click="onClick" @buttonClick="buttonClick" />
+		</view>
+
+
 	</view>
 </template>
 
@@ -58,6 +71,29 @@
 	let goods = ref([])
 	let starString = ref('star')
 	let showIcon = ref(true)
+
+	const options = [{
+		icon: 'shop',
+		text: '店铺'
+	}, {
+		icon: 'cart',
+		text: '购物车',
+		// 右上角的信息
+		info: 2,
+	}]
+
+	const buttonGroup = [{
+			text: '加入购物车',
+			// 配置按钮颜色
+			backgroundColor: 'linear-gradient(90deg, #FFCD1E, #FF8A18)',
+			color: '#fff'
+		},
+		{
+			text: '立即购买',
+			backgroundColor: 'linear-gradient(90deg, #FE6035, #EF1224)',
+			color: '#fff'
+		}
+	]
 
 	function preview(i: any) {
 
@@ -108,6 +144,25 @@
 
 
 	}
+	// 左侧按钮的点击事件处理函数
+	function onClick(e: any) {
+		console.log(typeof e)
+		if (e.content.text === '购物车') {
+			// 切换到购物车页面
+			uni.switchTab({
+				url: '/pages/cart/cart'
+			})
+			console.log('去购物车')
+		}
+	}
+
+	function buttonClick(e) {
+		console.log(e)
+	}
+
+
+
+
 
 	onLoad((option) => {
 		console.log(option)
@@ -169,5 +224,20 @@
 			font-size: 12px;
 			color: gray;
 		}
+	}
+
+
+	.goods-detail-container {
+		// 给页面外层的容器，添加 50px 的内padding，
+		// 防止页面内容被底部的商品导航组件遮盖
+		padding-bottom: 50px;
+	}
+
+	.goods_nav {
+		// 为商品导航组件添加固定定位
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
 	}
 </style>
