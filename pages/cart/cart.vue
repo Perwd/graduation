@@ -4,17 +4,30 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
+<script setup lang="ts">
+	import {
+		// ref,
+		// reactive,
+		// toRefs,
+		// reactive
+	} from 'vue'
+	import {
+		onLoad,
+		// onReachBottom
+	} from '@dcloudio/uni-app'
 
-			}
-		},
-		methods: {
 
-		}
-	}
+
+	onLoad((option) => {
+		console.log(option)
+		// console.log(typeof options)
+
+	})
+
+	// let goodsInfo = reactive < Object > ({})
+	// let goods = ref([])
+	// let starString = ref('star')
+	// let showIcon = ref(true)
 </script>
 
 <style lang="scss">
