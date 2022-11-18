@@ -67,10 +67,15 @@
 		// onReachBottom
 	} from '@dcloudio/uni-app'
 
+	import {
+		useStore
+	} from 'vuex'
+
 	let goodsInfo = reactive < Object > ({})
 	let goods = ref([])
 	let starString = ref('star')
 	let showIcon = ref(true)
+	const store = useStore()
 
 	const options = [{
 		icon: 'shop',
@@ -167,12 +172,15 @@
 
 	onLoad((option) => {
 		console.log(option)
-		// console.log(typeof options)
-		// console.log(typeof options.goods_id)
 
-		// const goods_id = options.goods_id
 		// console.log(3)
 		getGoodsDetail(option.goods_id)
+
+
+
+		if (store.state.uid === "000000") {
+			store.dispatch("apiGetUid")
+		}
 	})
 </script>
 
