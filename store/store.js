@@ -8,24 +8,32 @@ import {
 	createStore
 } from "vuex";
 
+
+// 购物车模块
+// import ModuleCart from './cart.js'
+
+
 // // 2. 将 Vuex 安装为 Vue 的插件
 // Vue.use(Vuex)
 
 // // 3. 创建 Store 的实例对象
-// const store = new Vuex.Store({
+// const store = createStore({
 // 	// TODO：挂载 store 模块
 // 	modules: {},
-
 // })
 
 // // 4. 向外共享 Store 的实例对象
 // export default store
 
 export default createStore({
+	modules: {
+		// m_cart: ModuleCart,
+	},
 	state: {
 		type: 'wxxcx',
 		name: 'wlr',
-		id: "000000"
+		id: "000000",
+		num: 0
 	},
 	mutations: {
 		// 定义mutations，用于修改状态(同步)
@@ -44,7 +52,8 @@ export default createStore({
 		apiGetUid(context) {
 			console.log('vuex', context)
 
-			state.
+			state.num++
+			console.log(state.num)
 		}
 
 	},
@@ -54,5 +63,5 @@ export default createStore({
 			return state
 		}
 	},
-	modules: {}
+
 });

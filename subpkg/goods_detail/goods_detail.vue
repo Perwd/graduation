@@ -68,14 +68,24 @@
 	} from '@dcloudio/uni-app'
 
 	import {
-		useStore
+		useStore,
+		// mapState
 	} from 'vuex'
+
+	// import {
+	// 	useCounterStore
+	// } from '../../store/pinia.js';
+	import {
+		useCounterStore
+	} from '../../pinia/cart';
+
 
 	let goodsInfo = reactive < Object > ({})
 	let goods = ref([])
 	let starString = ref('star')
 	let showIcon = ref(true)
 	const store = useStore()
+	const cart = useCounterStore();
 
 	const options = [{
 		icon: 'shop',
@@ -102,8 +112,8 @@
 
 	function preview(i: any) {
 
-		console.log(i)
-		console.log(typeof i)
+		// console.log(i)
+		// console.log(typeof i)
 		// 调用 uni.previewImage() 方法预览图片
 		uni.previewImage({
 			// 预览时，默认显示图片的索引
@@ -116,7 +126,7 @@
 
 
 	const getGoodsDetail = async (goods_id: string) => {
-		console.log(1)
+		// console.log(1)
 		const {
 			data: res
 		} = await (uni as any).$http.get('/api/public/v1/goods/detail', {
@@ -136,12 +146,12 @@
 		// console.log(goodsInfo.pics)
 
 		goods.value = goodsInfo.pics
-		console.log(goods.value)
-		console.log(goodsInfo.goods_introduce)
+		// console.log(goods.value)
+		// console.log(goodsInfo.goods_introduce)
 	}
 
 	function collection(item: string) {
-		console.log(item)
+		// console.log(item)
 		if (item === 'star') {
 			starString.value = 'star-filled'
 		} else {
@@ -150,9 +160,11 @@
 
 
 	}
+
+
 	// 左侧按钮的点击事件处理函数
 	function onClick(e: any) {
-		console.log(typeof e)
+		// console.log(typeof e)
 		if (e.content.text === '购物车') {
 			// 切换到购物车页面
 			uni.switchTab({
@@ -163,7 +175,7 @@
 	}
 
 	function buttonClick(e) {
-		console.log(e)
+		// console.log(e)
 	}
 
 
@@ -171,16 +183,29 @@
 
 
 	onLoad((option) => {
-		console.log(option)
+
+		// console.log(option)
 
 		// console.log(3)
+		// console.log(store)
 		getGoodsDetail(option.goods_id)
 
 
 
-		if (store.state.uid === "000000") {
+		if (store.state.id === "000000") {
 			store.dispatch("apiGetUid")
 		}
+
+
+		// // pinia仓库的三种触发方式
+		// cart.count++;
+		// // 可以手动触发
+		// cart.$patch({
+		// 	count: cart.count + 1
+		// });
+		// // 或者使用 actions
+		// cart.increment();
+
 	})
 </script>
 

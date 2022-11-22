@@ -3,44 +3,5 @@
   "projectname": "uni-app-vue3-experiment",
   "setting": {
     "compileHotReLoad": true
-  },
-  "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
-    "miniprogram": {
-      "list": [
-        {
-          "name": "",
-          "pathName": "subpkg/goods_detail/goods_detail",
-          "query": "goods_id=395",
-          "scene": null,
-          "partialCompile": {
-            "enabled": false,
-            "pages": [
-              "subpkg/goods_detail/goods_detail"
-            ]
-          }
-        },
-        {
-          "name": "",
-          "pathName": "pages/cart/cart",
-          "query": "",
-          "scene": null,
-          "partialCompile": {
-            "enabled": false,
-            "pages": [
-              "pages/cart/cart"
-            ]
-          }
-        }
-      ]
-    }
   }
 }

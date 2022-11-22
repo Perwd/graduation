@@ -103,6 +103,7 @@
     "path-is-absolute": "^1.0.1",
     "path-key": "^3.1.1",
     "path-parse": "^1.0.7",
+    "pinia": "^2.0.24",
     "prelude-ls": "^1.2.1",
     "proxy-from-env": "^1.1.0",
     "pump": "^3.0.0",
