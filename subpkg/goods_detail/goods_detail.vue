@@ -66,11 +66,13 @@
 		onLoad,
 		// onReachBottom
 	} from '@dcloudio/uni-app'
-
 	import {
-		useStore,
-		// mapState
-	} from 'vuex'
+		storeToRefs
+	} from 'pinia'
+	// import {
+	// 	useStore,
+	// 	mapState
+	// } from 'vuex'
 
 	// import {
 	// 	useCounterStore
@@ -84,8 +86,14 @@
 	let goods = ref([])
 	let starString = ref('star')
 	let showIcon = ref(true)
-	const store = useStore()
-	const cart = useCounterStore();
+
+	// const store = useStore()
+	// const cart=useCounterStore();
+	const store = useCounterStore();
+	const {
+		count,
+		name
+	} = storeToRefs(store)
 
 	const options = [{
 		icon: 'shop',
@@ -186,25 +194,29 @@
 
 		// console.log(option)
 
-		// console.log(3)
+		console.log(3)
 		// console.log(store)
-		getGoodsDetail(option.goods_id)
+		getGoodsDetail(option.goods_id as string)
 
 
 
-		if (store.state.id === "000000") {
-			store.dispatch("apiGetUid")
-		}
+		// if (store.state.id === "000000") {
+		// 	store.dispatch("apiGetUid")
+		// }
 
 
-		// // pinia仓库的三种触发方式
-		// cart.count++;
+		// pinia仓库的三种触发方式
+		count.value++;
+		console.log(name)
+		console.log(name.value)
+		console.log('count：', count.value)
+
 		// // 可以手动触发
 		// cart.$patch({
 		// 	count: cart.count + 1
 		// });
 		// // 或者使用 actions
-		// cart.increment();
+		// cart.count.increment();
 
 	})
 </script>
