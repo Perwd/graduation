@@ -80,9 +80,27 @@
 	import {
 		useCounterStore
 	} from '../../pinia/cart';
+	// import { Cart } from '../../pinia/store/type';
+	type Goods = {
+		goods_id: string,
+		goods_name: string,
+		pics: [],
+		goods_price: number,
+		goods_count: number,
+		goods_small_logo: string,
+		goods_state ? : Boolean,
+		goods_introduce ? : string | []
+	}
 
+	let goodsInfo = reactive < Goods > ({
+		goods_id: '',
+		goods_name: '',
+		pics: [],
+		goods_price: null,
+		goods_count: null,
+		goods_small_logo: '',
+	})
 
-	let goodsInfo = reactive < Object > ({})
 	let goods = ref([])
 	let starString = ref('star')
 	let showIcon = ref(true)
@@ -103,7 +121,7 @@
 		text: '购物车',
 		// 右上角的信息
 		info: 2,
-	}]
+	}, ]
 
 	const buttonGroup = [{
 			text: '加入购物车',
@@ -183,7 +201,24 @@
 	}
 
 	function buttonClick(e) {
-		// console.log(e)
+		console.log(e)
+
+		if (e.content.text === '加入购物车') {
+
+			// 2. 组织一个商品的信息对象
+			const goods = {
+				goods_id: goodsInfo.goods_id, // 商品的Id
+				goods_name: goodsInfo.goods_name, // 商品的名称
+				goods_price: goodsInfo.goods_price, // 商品的价格
+				goods_count: 1, // 商品的数量
+				goods_small_logo: goodsInfo.goods_small_logo, // 商品的图片
+				goods_state: true // 商品的勾选状态
+			}
+
+			// 3. 通过 this 调用映射过来的 addToCart 方法，把商品信息对象存储到购物车中
+			store.addToCart(goods)
+
+		}
 	}
 
 
