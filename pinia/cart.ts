@@ -83,6 +83,13 @@ export const useCounterStore =
 
 				console.log(this.cart)
 			},
-		}
+		},
+		getters: {
+			total: (state) => {
+				let num = 0
+				state.cart.forEach(goods => num += goods.goods_count)
+				return num as number
+			},
+		},
 
 	});

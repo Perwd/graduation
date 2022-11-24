@@ -59,6 +59,7 @@
 	import {
 		ref,
 		reactive,
+		watch
 		// toRefs,
 		// reactive
 	} from 'vue'
@@ -84,7 +85,9 @@
 	type Goods = {
 		goods_id: string,
 		goods_name: string,
-		pics: [],
+		pics: [{
+			pics_big: string
+		}],
 		goods_price: number,
 		goods_count: number,
 		goods_small_logo: string,
@@ -95,7 +98,9 @@
 	let goodsInfo = reactive < Goods > ({
 		goods_id: '',
 		goods_name: '',
-		pics: [],
+		pics: [{
+			pics_big: ''
+		}],
 		goods_price: null,
 		goods_count: null,
 		goods_small_logo: '',
@@ -110,8 +115,20 @@
 	const store = useCounterStore();
 	const {
 		count,
-		name
+		name,
+		total
 	} = storeToRefs(store)
+
+	watch(total, (newValue, oldValue) => {
+		console.log(newValue)
+		console.log(oldValue)
+		// 找到购物车按钮的配置对象存在
+		const findResult = options.find((x) => x.text === '购物车')
+
+		if (findResult) {
+			findResult.info = newValue
+		}
+	})
 
 	const options = [{
 		icon: 'shop',
