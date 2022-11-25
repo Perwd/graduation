@@ -43,8 +43,8 @@ export const useCounterStore =
 				// 购物车的数组，用来存储购物车中每个商品的信息对象
 				// 每个商品的信息对象，都包含如下 6 个属性：
 				// { goods_id, goods_name, goods_price, goods_count, goods_small_logo, goods_state }
-				cart: new Array<Cart>(),
-				// cart: [],
+				// cart: new Array<Cart>(),
+				cart: JSON.parse(uni.getStorageSync('cart') || new Array<Cart>()),
 			};
 		},
 		// 也可以这样定义
@@ -53,7 +53,6 @@ export const useCounterStore =
 			increment() {
 				this.count++;
 			},
-
 			// 2秒后更新状态
 			updateUid(context: any, payload: any) {
 				setTimeout(() => {
@@ -81,8 +80,17 @@ export const useCounterStore =
 					findResult.goods_count++
 				}
 
+
+				console.log('触发cart')
 				console.log(this.cart)
+				this.saveToStorage()
 			},
+			// 将购物车中的数据持久化存储到本地
+			saveToStorage() {
+				console.log('数据同步存入本地')
+				uni.setStorageSync('cart', JSON.stringify(this.cart))
+			}
+
 		},
 		getters: {
 			total: (state) => {

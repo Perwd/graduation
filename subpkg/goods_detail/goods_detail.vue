@@ -120,25 +120,30 @@
 	} = storeToRefs(store)
 
 	watch(total, (newValue, oldValue) => {
-		console.log(newValue)
-		console.log(oldValue)
+		console.log('total', newValue)
+		console.log('total', oldValue)
+		// console.log('options', options)
 		// 找到购物车按钮的配置对象存在
-		const findResult = options.find((x) => x.text === '购物车')
+		const findResult = options.find((x) => x.text === '购物车') || null
 
 		if (findResult) {
 			findResult.info = newValue
 		}
+	}, {
+		deep: true,
+		// immediate: true
 	})
 
-	const options = [{
-		icon: 'shop',
-		text: '店铺'
-	}, {
-		icon: 'cart',
-		text: '购物车',
-		// 右上角的信息
-		info: 2,
-	}, ]
+	const options = reactive(
+		[{
+			icon: 'shop',
+			text: '店铺'
+		}, {
+			icon: 'cart',
+			text: '购物车',
+			// 右上角的信息
+			info: null,
+		}, ])
 
 	const buttonGroup = [{
 			text: '加入购物车',
@@ -218,27 +223,48 @@
 	}
 
 	function buttonClick(e) {
-		console.log(e)
+		// console.log(e)
 
 		if (e.content.text === '加入购物车') {
+			// const goods = {
+			// 	goods_id: goodsInfo.goods_id, // 商品的Id
+			// 	goods_name: goodsInfo.goods_name, // 商品的名称
+			// 	goods_price: goodsInfo.goods_price, // 商品的价格
+			// 	goods_count: 1, // 商品的数量
+			// 	goods_small_logo: goodsInfo.goods_small_logo, // 商品的图片
+			// 	goods_state: true // 商品的勾选状态
+			// }	
 
-			// 2. 组织一个商品的信息对象
 			const goods = {
-				goods_id: goodsInfo.goods_id, // 商品的Id
-				goods_name: goodsInfo.goods_name, // 商品的名称
-				goods_price: goodsInfo.goods_price, // 商品的价格
+				...goodsInfo,
 				goods_count: 1, // 商品的数量
-				goods_small_logo: goodsInfo.goods_small_logo, // 商品的图片
 				goods_state: true // 商品的勾选状态
 			}
 
-			// 3. 通过 this 调用映射过来的 addToCart 方法，把商品信息对象存储到购物车中
+			// pinia的 addToCart 方法
 			store.addToCart(goods)
 
 		}
 	}
 
+	function getCartNum() {
+		let arr = JSON.parse(uni.getStorageSync('cart'))
+		// uni.getStorageSync('cart') 是个对象
+		// console.log(typeof uni.getStorageSync('cart'))
+		console.log('get')
 
+		// console.log(arr)
+		let num = arr.reduce((total: number, currentValue: any, index: number) => {
+			console.log('g')
+			console.log(currentValue)
+			console.log(index)
+			console.log(total)
+			return currentValue.goods_count
+		}, 0)
+		console.log(num)
+
+		return num
+	}
 
 
 
@@ -256,13 +282,17 @@
 		// 	store.dispatch("apiGetUid")
 		// }
 
+		options[1].info = getCartNum()
+		// console.log(uni.getStorageSync('cart'))
+		// console.log(options)
+		// console.log(options[1].info)
+
 
 		// pinia仓库的三种触发方式
 		count.value++;
-		console.log(name)
-		console.log(name.value)
-		console.log('count：', count.value)
-
+		// console.log(name)
+		// console.log(name.value)
+		// console.log('count：', count.value)
 		// // 可以手动触发
 		// cart.$patch({
 		// 	count: cart.count + 1

@@ -65,6 +65,12 @@
 
 	} from '@dcloudio/uni-app'
 
+	import {
+		setBadge,
+		count,
+		double
+	} from '../../hook/useBadge'
+
 	const swiperList = ref([])
 	const navList = ref([])
 	const floorList = ref([])
@@ -139,6 +145,10 @@
 		getSwiperList()
 		getNavList()
 		getFloorList()
+
+		// console.log(setBadge)
+		console.log(count)
+		console.log(double)
 	})
 </script>
 
