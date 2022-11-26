@@ -5,7 +5,7 @@ import {
 } from "vue";
 import {
 	useCounterStore
-} from '../../pinia/cart';
+} from '../pinia/cart';
 import {
 	storeToRefs
 } from 'pinia'
@@ -21,6 +21,7 @@ export default function() {
 
 	function setBadge() {
 		console.log(total)
+		console.log(this.total)
 		console.log(total.value)
 		// 调用 uni.setTabBarBadge() 方法，为购物车设置右上角的徽标
 		uni.setTabBarBadge({

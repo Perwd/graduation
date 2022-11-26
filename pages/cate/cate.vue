@@ -47,7 +47,7 @@
 		// computed,
 		// watch,
 	} from 'vue'
-
+	import useBadge from "../../hook/useBadge.js";
 	import {
 		onLoad,
 		// onShow,
@@ -61,6 +61,9 @@
 	const cateLevel2 = ref([])
 	const active = ref(0)
 	const scrollTop = ref(0)
+	const {
+		setBadge
+	} = useBadge();
 
 
 
@@ -127,6 +130,7 @@
 
 		getHeight()
 		getCateList()
+		setBadge()
 	})
 </script>
 
