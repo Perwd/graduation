@@ -47,7 +47,7 @@
 		// computed,
 		// watch,
 	} from 'vue'
-	import useBadge from "../../hook/useBadge.js";
+	import useBadge from "../../hook/useBadge";
 	import {
 		onLoad,
 		// onShow,

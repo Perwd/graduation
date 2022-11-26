@@ -97,7 +97,7 @@
 		// console.log('触发')
 
 		if (queryObj.pageNum * queryObj.pageSize >= total.value) {
-			return (uni as any).$showMsg('数据加载完毕，已是最后一页')
+			return uni.$showMsg('数据加载完毕，已是最后一页')
 		}
 
 		if (isLoad.value) {

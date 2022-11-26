@@ -20,12 +20,11 @@
 		onLoad,
 		// onReachBottom
 	} from '@dcloudio/uni-app'
-	import useBadge from "../../hook/useBadge.js";
+	import useBadge from "../../hook/useBadge";
 
 	let goodsInfo = reactive < Object > ({})
 	let goods = ref([])
-	let starString = ref('star')
-	let showIcon = ref(true)
+
 	const {
 		setBadge
 	} = useBadge();

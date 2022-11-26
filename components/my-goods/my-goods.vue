@@ -17,29 +17,35 @@
 </template>
 
 <script setup lang="ts">
-	// import {
-	// 	ref,
-	// 	reactive,
-	// 	// toRefs,
-	// 	// reactive
-	// } from 'vue'
+	import {
+		// PropType
+	} from 'vue'
 	import {
 		onLoad,
 		// onReachBottom
 	} from '@dcloudio/uni-app'
+	type Goodes = {
+		goods_price ? : string,
+		goods_name ? : string,
+		goods_small_logo ? : string,
+	}
 
-
-	const props = defineProps({
+	// const props = defineProps({
+	// 	goods: {
+	// 		type: object as PropType < Goodes > ,
+	// 		default: () => {}
+	// 	}
+	// })
+	const props: Goodes = defineProps({
 		goods: {
 			type: Object,
 			default: () => {}
-		},
-
+		}
 	})
 	const emit = defineEmits(['mySearchClick'])
 
 
-	const defaultPic =
+	const defaultPic: string =
 		'https://img3.doubanio.com/f/movie/8dd0c794499fe925ae2ae89ee30cd225750457b4/pics/movie/celebrity-default-medium.png'
 
 	type GoodsPrice = number | string
@@ -50,6 +56,8 @@
 	}
 
 	onLoad(() => {
+		// console.log(
+
 
 	})
 </script>

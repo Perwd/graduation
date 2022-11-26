@@ -52,9 +52,10 @@
 	</view>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import {
-		ref
+		ref,
+		reactive
 	} from "vue";
 	// import {
 	// 	$ref
@@ -63,48 +64,83 @@
 		onLoad
 	} from "@dcloudio/uni-app";
 
-	import useBadge from "../../hook/useBadge.js";
+	import useBadge from "../../hook/useBadge";
 
-	const swiperList = ref([]);
-	const navList = ref([]);
-	const floorList = ref([]);
+
+	type Item = {
+		name: string
+	}
+
+	type List = {
+		image_src ? : string,
+		goods_id ? : string,
+	}
+
+	type FList = {
+		floor_title: {
+			image_src: string
+		},
+		product_list: [{
+			image_src: string,
+			url: string,
+			image_width: number,
+			navigator_url: string,
+		}]
+	}
+
+	//解决方法定义一个any类型
+	const uniAPP: any = uni
+
+
+	const swiperList = ref([{
+		image_src: '',
+		goods_id: '',
+	}]);
+	const navList = ref([{
+		image_src: '',
+		name: '',
+	}]);
+
+	const floorList = ref < [FList] > ();
 	const {
 		setBadge,
 		double,
 		count
 	} = useBadge();
 
+
+
 	const getSwiperList = async () => {
 		const {
 			data: res
-		} = await uni.$http.get("/api/public/v1/home/swiperdata");
+		} = await uniAPP.$http.get("/api/public/v1/home/swiperdata");
 		// console.log(res)
 
-		if (res.meta.status !== 200) return uni.$showMsg();
+		if (res.meta.status !== 200) return uniAPP.$showMsg();
 
-		swiperList.value = res.message;
+		swiperList.value = res.message
 	};
 
 	const getNavList = async () => {
 		const {
 			data: res
-		} = await uni.$http.get("/api/public/v1/home/catitems");
+		} = await uniAPP.$http.get("/api/public/v1/home/catitems");
 		// console.log(res)
 
-		if (res.meta.status !== 200) return uni.$showMsg();
+		if (res.meta.status !== 200) return uniAPP.$showMsg();
 
 		navList.value = res.message;
 	};
 	const getFloorList = async () => {
 		const {
 			data: res
-		} = await uni.$http.get("/api/public/v1/home/floordata");
+		} = await uniAPP.$http.get("/api/public/v1/home/floordata");
 		// console.log(res)
 
-		if (res.meta.status !== 200) return uni.$showMsg();
+		if (res.meta.status !== 200) return uniAPP.$showMsg();
 
 		// 处理 URL 地址
-		res.message.forEach((floor) => {
+		res.message.forEach((floor: FList) => {
 			floor.product_list.forEach((prod) => {
 				prod.url =
 					"/subpkg/goods_list/goods_list?" + prod.navigator_url.split("?")[1];
@@ -114,7 +150,7 @@
 		// console.log(floorList.value)
 	};
 
-	const navClickHandler = (item) => {
+	const navClickHandler = (item: Item) => {
 		// console.log(item)
 		if (item.name === "分类") {
 			uni.switchTab({

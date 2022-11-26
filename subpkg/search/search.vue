@@ -58,7 +58,10 @@
 
 	type Data2 = {
 		timeout ? : any,
-		searchResults ? : Array < String >
+		searchResults: [{
+			goods_id ? : number,
+			goods_name ? : string,
+		}]
 	}
 
 	const str = ref('')
@@ -72,10 +75,12 @@
 
 	const data = reactive < Data2 > ({
 		timeout: null,
-		searchResults: []
+		searchResults: [{
+			goods_id: null
+		}]
 	});
 
-	const input = (e) => {
+	const input = (e: string) => {
 		clearTimeout(data.timeout) //清楚定时器
 		data.timeout = setTimeout(() => {
 			// console.log(e)
@@ -91,7 +96,7 @@
 
 
 	const getSearchList = async () => {
-		if (str.value === '') return data.searchResults = []
+		if (str.value === '') return data.searchResults = [{}]
 		// 发起请求，获取搜索建议列表
 		const {
 			data: res
@@ -115,7 +120,7 @@
 
 	}
 
-	function gotoGoodsList(item) {
+	function gotoGoodsList(item: object) {
 		console.log(item)
 		uni.navigateTo({
 			// 指定详情页面的 URL 地址，并传递 goods_id 参数

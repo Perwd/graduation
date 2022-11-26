@@ -1,5 +1,5 @@
 <template>
-	<view class="my-search-container " :style="`background-color: ${props.bColor};`" @click="clickMySearch()">
+	<view class="my-search-container " :style="`background-color: ${bColor};`" @click="clickMySearch()">
 		<view class="my-search-box" :style="{'border-radius':props.raius +'px'}">
 			<uni-icons type="search" size="17"></uni-icons>
 			<text class="placeholder">搜索</text>
@@ -28,9 +28,12 @@
 		// onPullDownRefresh,
 		// onReachBottom,
 	} from '@dcloudio/uni-app'
-
+	type PropType = {
+		bColor: string,
+		raius: number | string
+	}
 	// const raius = ref < Number > (0)
-	const props = defineProps({
+	const props: PropType = defineProps({
 		bColor: {
 			type: String,
 			default: '#c00000'
