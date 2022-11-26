@@ -71,10 +71,6 @@
 		name: string
 	}
 
-	type List = {
-		image_src ? : string,
-		goods_id ? : string,
-	}
 
 	type FList = {
 		floor_title: {

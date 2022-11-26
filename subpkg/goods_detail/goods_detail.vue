@@ -46,8 +46,7 @@
 			<!-- buttonGroup 右侧按钮的配置项 -->
 			<!-- click 左侧按钮的点击事件处理函数 -->
 			<!-- buttonClick 右侧按钮的点击事件处理函数 -->
-			<!-- <uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick(2)"
-				@buttonClick="buttonClick(1)" /> -->
+
 			<uni-goods-nav :options="options" :buttonGroup="buttonGroup" @click="onClick" @buttonClick="buttonClick" />
 		</view>
 
@@ -82,6 +81,15 @@
 		useCounterStore
 	} from '../../pinia/cart';
 	// import { Cart } from '../../pinia/store/type';
+	type GoodsType = {
+		goods_id: string,
+		goods_name: string,
+		goods_price: number,
+		goods_count: number,
+		goods_small_logo: string,
+		goods_state: Boolean,
+	}
+
 	type Goods = {
 		goods_id: string,
 		goods_name: string,
@@ -89,7 +97,8 @@
 			pics_big: string
 		}],
 		goods_price: number,
-		goods_count: number,
+		goods_count: number | null,
+		pics_big ? : string,
 		goods_small_logo: string,
 		goods_state ? : Boolean,
 		goods_introduce ? : string | []
@@ -101,12 +110,13 @@
 		pics: [{
 			pics_big: ''
 		}],
-		goods_price: null,
+		goods_price: 0,
 		goods_count: null,
 		goods_small_logo: '',
 	})
 
-	let goods = ref([])
+
+	let goods = ref < [Goods] > ()
 	let starString = ref('star')
 	let showIcon = ref(true)
 
@@ -124,7 +134,7 @@
 		console.log('total', oldValue)
 		// console.log('options', options)
 		// 找到购物车按钮的配置对象存在
-		const findResult = options.find((x) => x.text === '购物车') || null
+		const findResult = options.find((x) => x.text === '购物车')
 
 		if (findResult) {
 			findResult.info = newValue
@@ -222,24 +232,24 @@
 		}
 	}
 
-	function buttonClick(e) {
+	function buttonClick(e: any) {
 		// console.log(e)
 
 		if (e.content.text === '加入购物车') {
-			// const goods = {
-			// 	goods_id: goodsInfo.goods_id, // 商品的Id
-			// 	goods_name: goodsInfo.goods_name, // 商品的名称
-			// 	goods_price: goodsInfo.goods_price, // 商品的价格
-			// 	goods_count: 1, // 商品的数量
-			// 	goods_small_logo: goodsInfo.goods_small_logo, // 商品的图片
-			// 	goods_state: true // 商品的勾选状态
-			// }	
-
-			const goods = {
-				...goodsInfo,
+			const goods: GoodsType = {
+				goods_id: goodsInfo.goods_id, // 商品的Id
+				goods_name: goodsInfo.goods_name, // 商品的名称
+				goods_price: goodsInfo.goods_price, // 商品的价格
 				goods_count: 1, // 商品的数量
+				goods_small_logo: goodsInfo.goods_small_logo, // 商品的图片
 				goods_state: true // 商品的勾选状态
 			}
+
+			// const goods: GoodsType = {
+			// 	...goodsInfo,
+			// 	goods_count: 1, // 商品的数量
+			// 	goods_state: true // 商品的勾选状态
+			// }
 
 			// pinia的 addToCart 方法
 			store.addToCart(goods)
