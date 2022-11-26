@@ -64,8 +64,8 @@ export const useCounterStore =
 
 				this.count++
 				console.log(this.count)
-				console.log(this.type)
-				console.log(this.name)
+				// console.log(this.type)
+				// console.log(this.name)
 			},
 			addToCart(goods: Cart) {
 

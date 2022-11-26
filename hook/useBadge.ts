@@ -11,7 +11,7 @@ import {
 } from 'pinia'
 
 export default function() {
-	const double = computed(() => count * 2)
+	const double = computed(() => Number(count) * 2)
 
 	const store = useCounterStore();
 	const {
@@ -20,13 +20,12 @@ export default function() {
 	} = storeToRefs(store)
 
 	function setBadge() {
-		console.log(total)
-		console.log(this.total)
-		console.log(total.value)
+		// console.log('total')
+		// console.log(total.value)
 		// 调用 uni.setTabBarBadge() 方法，为购物车设置右上角的徽标
 		uni.setTabBarBadge({
 			index: 2, // 索引
-			text: total + '' // 注意：text 的值必须是字符串，不能是数字
+			text: `${total.value}` // 注意：text 的值必须是字符串，不能是数字
 		})
 	}
 	return {

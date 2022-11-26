@@ -1,3 +1,5 @@
+<!-- 购物车页面，展示用户的物品 -->
+
 <template>
 	<view>
 		<!-- 商品列表的标题 -->
@@ -5,14 +7,17 @@
 			<uni-icons type="shop" size="18"></uni-icons>
 			<text class="cart-title-text">购物车</text>
 		</view>
+		<block v-for="(goods, i) in cart" :key="i">
+			<my-goods :goods="goods" :show-radio="true" @radio-change="radioChangeHandler(goods)"></my-goods>
+		</block>
 
 	</view>
 </template>
 
 <script setup lang="ts">
 	import {
-		ref,
-		reactive,
+		// ref,
+		// reactive,
 		// toRefs,
 		// reactive
 	} from 'vue'
@@ -20,20 +25,36 @@
 		onLoad,
 		// onReachBottom
 	} from '@dcloudio/uni-app'
+	import {
+		storeToRefs
+	} from 'pinia'
 	import useBadge from "../../hook/useBadge";
+	import {
+		useCounterStore
+	} from '../../pinia/cart';
 
-	let goodsInfo = reactive < Object > ({})
-	let goods = ref([])
+	// let goodsInfo = reactive < Object > ({})
+	// let goods = ref([])
+	const store = useCounterStore()
+	const {
+		cart
+	} = storeToRefs(store)
 
 	const {
 		setBadge
 	} = useBadge();
 
+	const radioChangeHandler = (e: any) => {
+		console.log(e)
+	}
 
-	onLoad((option) => {
-		console.log(option)
+
+	onLoad(() => {
+		// console.log('count')
+		// console.log(count)
+		// console.log(setBadge)
 		setBadge()
-		// console.log(typeof options)
+
 
 	})
 </script>

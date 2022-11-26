@@ -2,6 +2,7 @@
 	<view class="goods-item">
 		<!-- 商品左侧图片区域 -->
 		<view class="goods-item-left">
+			<radio :checked="goods.goods_state" color="#C00000" v-if="showRadio"></radio>
 			<image :src="goods.goods_small_logo || defaultPic" class="goods-pic"></image>
 		</view>
 		<!-- 商品右侧信息区域 -->
@@ -13,6 +14,8 @@
 				<view class="goods-price">￥{{tofixed(goods.goods_price)}}</view>
 			</view>
 		</view>
+
+
 	</view>
 </template>
 
@@ -28,6 +31,7 @@
 		goods_price ? : string,
 		goods_name ? : string,
 		goods_small_logo ? : string,
+		showRadio: Boolean
 	}
 
 	// const props = defineProps({
@@ -40,8 +44,14 @@
 		goods: {
 			type: Object,
 			default: () => {}
-		}
+		},
+		// 是否展示图片左侧的 radio
+		showRadio: {
+			type: Boolean,
+			default: false,
+		},
 	})
+
 	const emit = defineEmits(['mySearchClick'])
 
 
@@ -70,6 +80,9 @@
 
 		.goods-item-left {
 			margin-right: 5px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
 
 			.goods-pic {
 				width: 100px;
