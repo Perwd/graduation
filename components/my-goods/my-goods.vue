@@ -2,7 +2,7 @@
 	<view class="goods-item">
 		<!-- 商品左侧图片区域 -->
 		<view class="goods-item-left">
-			<radio :checked="goods.goods_state" color="#C00000" v-if="showRadio"></radio>
+			<radio @click="radioClickHandler" :checked="goods.goods_state" color="#C00000" v-if="showRadio"></radio>
 			<image :src="goods.goods_small_logo || defaultPic" class="goods-pic"></image>
 		</view>
 		<!-- 商品右侧信息区域 -->
@@ -52,7 +52,7 @@
 		},
 	})
 
-	const emit = defineEmits(['mySearchClick'])
+	const emit = defineEmits(['mySearchClick', 'radio-change'])
 
 
 	const defaultPic: string =
@@ -63,6 +63,17 @@
 	function tofixed(num: GoodsPrice) {
 		// console.log(num)
 		return Number(num).toFixed(2)
+	}
+
+	function radioClickHandler() {
+		// 通过 this.$emit() 触发外界通过 @ 绑定的 radio-change 事件，
+		// 同时把商品的 Id 和 勾选状态 作为参数传递给 radio-change 事件处理函数
+		emit('radio-change', {
+			// 商品的 Id
+			goods_id: props.goods.goods_id,
+			// 商品最新的勾选状态
+			goods_state: !props.goods.goods_state
+		})
 	}
 
 	onLoad(() => {
