@@ -37,7 +37,8 @@
 	// let goods = ref([])
 	const store = useCounterStore()
 	const {
-		cart
+		cart,
+
 	} = storeToRefs(store)
 
 	const {
@@ -46,6 +47,7 @@
 
 	const radioChangeHandler = (e: any) => {
 		console.log(e)
+		store.updateGoodsState(e)
 	}
 
 

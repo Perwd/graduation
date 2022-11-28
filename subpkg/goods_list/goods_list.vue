@@ -27,16 +27,16 @@
 		value ? : number,
 		query ? : string,
 		cid ? : string,
-		pageNum ? : number,
-		pageSize ? : number,
+		pageNum: number,
+		pageSize: number,
 	}
 	// 通过接口定义对象所具有的属性，
 	//通过接口声明对象后，所具有的属性值一目了然
 	// const cid2: ValueObject = Object.create(null);
 
 	const cid = ref < String > ()
-	const goodsList = ref([])
-	const total = ref < Number > ()
+	const goodsList = ref < any > ([])
+	const total = ref < number > (0)
 	// const cid3 = ref < string > ('s')
 
 	const queryObj: ValueObject = reactive({
@@ -97,7 +97,7 @@
 		// console.log('触发')
 
 		if (queryObj.pageNum * queryObj.pageSize >= total.value) {
-			return uni.$showMsg('数据加载完毕，已是最后一页')
+			return (uni as any).$showMsg('数据加载完毕，已是最后一页')
 		}
 
 		if (isLoad.value) {

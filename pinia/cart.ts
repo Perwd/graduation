@@ -89,7 +89,23 @@ export const useCounterStore =
 			saveToStorage() {
 				console.log('数据同步存入本地')
 				uni.setStorageSync('cart', JSON.stringify(this.cart))
+			},
+			// 更新购物车中商品的勾选状态
+			updateGoodsState(goods: any) {
+				// 根据 goods_id 查询购物车中对应商品的信息对象
+				const findResult = this.cart.find((x: Cart) => x.goods_id === goods.goods_id)
+
+				// 有对应的商品信息对象
+				if (findResult) {
+					// 更新对应商品的勾选状态
+					findResult.goods_state = goods.goods_state
+					// 持久化存储到本地
+					this.saveToStorage()
+
+					// 课程中 this.commit('m_cart/saveToStorage')，就是调用方法saveToStorage
+				}
 			}
+
 
 		},
 		getters: {

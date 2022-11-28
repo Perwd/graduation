@@ -152,7 +152,8 @@
 			icon: 'cart',
 			text: '购物车',
 			// 右上角的信息
-			info: null,
+			// info: null,
+			info: 0,
 		}, ])
 
 	const buttonGroup = [{

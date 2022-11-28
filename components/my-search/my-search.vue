@@ -1,6 +1,6 @@
 <template>
 	<view class="my-search-container " :style="`background-color: ${bColor};`" @click="clickMySearch()">
-		<view class="my-search-box" :style="{'border-radius':props.raius +'px'}">
+		<view class="my-search-box" :style="{'border-radius':raius +'px'}">
 			<uni-icons type="search" size="17"></uni-icons>
 			<text class="placeholder">搜索</text>
 		</view>
@@ -20,6 +20,7 @@
 		// onUnmounted,
 		// computed,
 		// watch,
+		// PropType
 	} from 'vue'
 
 	import {
@@ -28,12 +29,15 @@
 		// onPullDownRefresh,
 		// onReachBottom,
 	} from '@dcloudio/uni-app'
-	type PropType = {
+	type PropT = {
 		bColor: string,
 		raius: number | string
 	}
 	// const raius = ref < Number > (0)
-	const props: PropType = defineProps({
+	// const props:PropType = defineProps({
+	type str = string | null
+
+	const props = defineProps({
 		bColor: {
 			type: String,
 			default: '#c00000'
@@ -41,8 +45,11 @@
 		raius: {
 			type: Number,
 			default: 18
-		}
+		},
+		list: new Array
 	})
+
+
 	const emit = defineEmits(['mySearchClick'])
 
 
@@ -59,8 +66,7 @@
 	}
 
 	onShow(() => {
-		console.log(1)
-
+		console.log(props)
 	})
 </script>
 

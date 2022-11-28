@@ -31,7 +31,14 @@
 		goods_price ? : string,
 		goods_name ? : string,
 		goods_small_logo ? : string,
-		showRadio: Boolean
+		// goods_id ? : string,
+		// goods_state ? : Boolean,
+		showRadio ? : Boolean,
+		goods: Goodes2
+	}
+	type Goodes2 = {
+		goods_id ? : string,
+		goods_state ? : Boolean,
 	}
 
 	// const props = defineProps({
