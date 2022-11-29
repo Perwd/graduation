@@ -3,37 +3,5 @@
   "projectname": "uni-app-vue3-experiment",
   "setting": {
     "compileHotReLoad": true
-  },
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "",
-          "pathName": "pages/home/home",
-          "query": "",
-          "launchMode": "default",
-          "scene": null,
-          "partialCompile": {
-            "enabled": false,
-            "pages": [
-              "subpkg/goods_detail/goods_detail"
-            ]
-          }
-        },
-        {
-          "name": "",
-          "pathName": "subpkg/goods_detail/goods_detail",
-          "query": "goods_id=395",
-          "launchMode": "default",
-          "scene": null,
-          "partialCompile": {
-            "enabled": false,
-            "pages": [
-              "subpkg/goods_detail/goods_detail"
-            ]
-          }
-        }
-      ]
-    }
   }
 }

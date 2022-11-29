@@ -19,7 +19,7 @@
 			<!-- 标题区域 -->
 			<view class="history-title">
 				<text>搜索历史</text>
-				<uni-icons type="trash" size="17" @click="clean"></uni-icons>
+				<uni-icons type="trash" size="17" @click="clear"></uni-icons>
 			</view>
 			<!-- 列表区域 -->
 			<view class="history-list">
@@ -112,7 +112,7 @@
 
 
 	function gotoDetail(goods_id: Number) {
-		console.log(goods_id)
+		// console.log(goods_id)
 		uni.navigateTo({
 			// 指定详情页面的 URL 地址，并传递 goods_id 参数
 			url: '/subpkg/goods_detail/goods_detail?goods_id=' + goods_id
@@ -121,7 +121,7 @@
 	}
 
 	function gotoGoodsList(item: object) {
-		console.log(item)
+		// console.log(item)
 		uni.navigateTo({
 			// 指定详情页面的 URL 地址，并传递 goods_id 参数
 			url: '/subpkg/goods_list/goods_list?goods_id=' + item
@@ -146,7 +146,7 @@
 	}
 
 
-	function clean() {
+	function clear() {
 		historyList.value = []
 
 		uni.setStorageSync('str', '')

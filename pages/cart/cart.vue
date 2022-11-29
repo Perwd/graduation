@@ -8,7 +8,7 @@
 			<text class="cart-title-text">购物车</text>
 		</view>
 		<block v-for="(goods, i) in cart" :key="i">
-			<my-goods :goods="goods" :show-radio="true" @radio-change="radioChangeHandler(goods)"></my-goods>
+			<my-goods :goods="goods" :show-radio="true" @radio-change="radioChangeHandler"></my-goods>
 		</block>
 
 	</view>
@@ -20,6 +20,7 @@
 		// reactive,
 		// toRefs,
 		// reactive
+		// nextTick
 	} from 'vue'
 	import {
 		onLoad,
@@ -32,6 +33,9 @@
 	import {
 		useCounterStore
 	} from '../../pinia/cart';
+	// import {
+	// 	nextTick
+	// } from 'process';
 
 	// let goodsInfo = reactive < Object > ({})
 	// let goods = ref([])
@@ -45,9 +49,15 @@
 		setBadge
 	} = useBadge();
 
-	const radioChangeHandler = (e: any) => {
-		console.log(e)
-		store.updateGoodsState(e)
+
+
+	const radioChangeHandler = (obj: any) => {
+		console.log('改变状态')
+
+		// console.log(obj)
+
+
+		store.updateGoodsState(obj)
 	}
 
 

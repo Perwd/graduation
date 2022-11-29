@@ -52,12 +52,17 @@
 	// 节流
 	const isLoad = ref < boolean > (false);
 
+	interface ItemData {
+		goods_id: number
+	}
 
+	const gotoDetail = (item: ItemData) => {
+		// console.log(item)
+		// console.log(typeof item.goods_id)
+		// console.log(Number(item.goods_id))
 
-	const gotoDetail = (item: any) => {
-		console.log(item)
 		uni.navigateTo({
-			url: '/subpkg/goods_detail/goods_detail?goods_id=' + item.goods_id
+			url: '/subpkg/goods_detail/goods_detail?goods_id=' + Number(item.goods_id)
 		})
 	}
 

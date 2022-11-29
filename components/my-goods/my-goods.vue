@@ -23,6 +23,8 @@
 	import {
 		// PropType
 	} from 'vue'
+
+	// import type { PropType } from 'vue'
 	import {
 		onLoad,
 		// onReachBottom
@@ -37,17 +39,22 @@
 		goods: Goodes2
 	}
 	type Goodes2 = {
-		goods_id ? : string,
+		goods_id ? : number,
 		goods_state ? : Boolean,
 	}
 
-	// const props = defineProps({
+	// const props: Goodes = defineProps({
 	// 	goods: {
-	// 		type: object as PropType < Goodes > ,
+	// 		type: Object,
 	// 		default: () => {}
-	// 	}
+	// 	},
+	// 	// 是否展示图片左侧的 radio
+	// 	showRadio: {
+	// 		type: Boolean,
+	// 		default: false,
+	// 	},
 	// })
-	const props: Goodes = defineProps({
+	const props = defineProps({
 		goods: {
 			type: Object,
 			default: () => {}
@@ -58,9 +65,24 @@
 			default: false,
 		},
 	})
+	// const props = defineProps({
+	// 	goods: {
+	// 		type: Object as PropType<Goodes2>, 
+	// 		default: () => {}
+	// 	},
+	// 	// 是否展示图片左侧的 radio
+	// 	showRadio: {
+	// 		type: Boolean,
+	// 		default: false,
+	// 	},
+	// })
 
-	const emit = defineEmits(['mySearchClick', 'radio-change'])
-
+	// emit定义的方式
+	// const emit = defineEmits(['mySearchClick', 'radio-change'])
+	const emit = defineEmits < {
+		(e: 'mySearchClick'): void,
+		(e: 'radio-change', goods_id: number, goods_state: boolean): void
+	} > ()
 
 	const defaultPic: string =
 		'https://img3.doubanio.com/f/movie/8dd0c794499fe925ae2ae89ee30cd225750457b4/pics/movie/celebrity-default-medium.png'
@@ -69,18 +91,33 @@
 
 	function tofixed(num: GoodsPrice) {
 		// console.log(num)
-		return Number(num).toFixed(2)
+
+
+		return Number(num).toFixed(2) === '0.00' ? '20.0' : Number(num).toFixed(2)
 	}
 
 	function radioClickHandler() {
+
+		// console.log(props)
+		// console.log(props.goods)
+
+
+		let sendData = {
+			goods_id: props.goods.goods_id,
+			goods_state: !props.goods.goods_state,
+		}
+		console.log(sendData)
+		console.log(!props.goods.goods_state)
 		// 通过 this.$emit() 触发外界通过 @ 绑定的 radio-change 事件，
 		// 同时把商品的 Id 和 勾选状态 作为参数传递给 radio-change 事件处理函数
+
+
 		emit('radio-change', {
-			// 商品的 Id
 			goods_id: props.goods.goods_id,
-			// 商品最新的勾选状态
-			goods_state: !props.goods.goods_state
+			goods_state: !props.goods.goods_state,
 		})
+
+
 	}
 
 	onLoad(() => {

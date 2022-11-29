@@ -55,7 +55,7 @@
 <script setup lang="ts">
 	import {
 		ref,
-		reactive
+		// reactive
 	} from "vue";
 	// import {
 	// 	$ref
@@ -168,9 +168,9 @@
 		getNavList();
 		getFloorList();
 		setBadge()
-		console.log(count);
-		console.log(double);
-		console.log(setBadge);
+		// console.log(count);
+		// console.log(double);
+		// console.log(setBadge);
 
 	});
 </script>
