@@ -7,28 +7,30 @@
 			<uni-icons type="shop" size="18"></uni-icons>
 			<text class="cart-title-text">购物车</text>
 		</view>
-		<block v-for="(goods, i) in cart" :key="i">
-			<my-goods :goods="goods" :show-radio="true" @radio-change="radioChangeHandler"></my-goods>
-		</block>
+
+		<uni-swipe-action>
+			<block v-for="(goods, i) in cart" :key="i">
+				<!-- uni-swipe-action-item 可以为其子节点提供滑动操作的效果。需要通过 options 属性来指定操作按钮的配置信息 -->
+				<uni-swipe-action-item :options="options" @click="swipeActionClickHandler(goods)">
+					<my-goods :goods="goods" :show-radio="true" :show-num="true" @radio-change="radioChangeHandler"
+						@num-change="numberChangeHandler"></my-goods>
+				</uni-swipe-action-item>
+			</block>
+		</uni-swipe-action>
+		<!-- 	<block v-for="(goods, i) in cart" :key="i">
+			<my-goods :goods="goods" :show-radio="true" :show-num="true" @num-change="numberChangeHandler"
+				@radio-change="radioChangeHandler"></my-goods>
+		</block> -->
 
 	</view>
 </template>
 
 <script setup lang="ts">
 	import {
-		// ref,
-		// reactive,
-		// toRefs,
-		// reactive
-		// nextTick
-	} from 'vue'
-	import {
 		onLoad,
 		// onReachBottom
 	} from '@dcloudio/uni-app'
-	import {
-		storeToRefs
-	} from 'pinia'
+	// import {storeToRefs} from 'pinia'
 	import useBadge from "../../hook/useBadge";
 	import {
 		useCounterStore
@@ -39,25 +41,43 @@
 
 	// let goodsInfo = reactive < Object > ({})
 	// let goods = ref([])
-	const store = useCounterStore()
 	const {
-		cart,
-
-	} = storeToRefs(store)
+		updateGoodsState,
+		removeGoodsById,
+		cart
+	} = useCounterStore()
+	// const {cart} = storeToRefs( useCounterStore())
 
 	const {
 		setBadge
 	} = useBadge();
-
+	const options = [{
+		text: '删除', // 显示的文本内容
+		style: {
+			backgroundColor: '#EF1224' // 按钮的背景颜色
+		}
+	}]
 
 
 	const radioChangeHandler = (obj: any) => {
 		console.log('改变状态')
-
 		// console.log(obj)
+		// store.updateGoodsState(obj)
+		updateGoodsState(obj)
 
+	}
 
-		store.updateGoodsState(obj)
+	const numberChangeHandler = (e: any) => {
+		console.log('cart改变值', e)
+
+		// store.updateGoodsState(e)
+		updateGoodsState(e)
+	}
+
+	const swipeActionClickHandler = (e: any) => {
+
+		console.log(e)
+		removeGoodsById(e.goods_id)
 	}
 
 
