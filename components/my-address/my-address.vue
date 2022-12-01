@@ -10,16 +10,16 @@
 		<view v-else class="address-info-box">
 			<view class="row1">
 				<view class="row1-left">
-					<view class="username">收货人：<text>escook</text></view>
+					<view class="username">收货人：<text>{{address.userName}}</text></view>
 				</view>
 				<view class="row1-right">
-					<view class="phone">电话：<text>138XXXX5555</text></view>
+					<view class="phone">电话：<text>{{address.telNumber}}</text></view>
 					<uni-icons type="arrowright" size="16"></uni-icons>
 				</view>
 			</view>
 			<view class="row2">
 				<view class="row2-left">收货地址：</view>
-				<view class="row2-right">河北省邯郸市肥乡区xxx 河北省邯郸市肥乡区xxx 河北省邯郸市肥乡区xxx 河北省邯郸市肥乡区xxx </view>
+				<view class="row2-right">{{addStr}}</view>
 			</view>
 		</view>
 
@@ -32,15 +32,40 @@
 <script setup lang="ts">
 	import {
 		ref,
+		computed
 		// reactive
 	} from "vue";
 	import {
 		onLoad
 	} from "@dcloudio/uni-app";
+	// import {
+	// 	storeToRefs
+	// } from 'pinia'
+	import {
+		userAddress
+	} from '../../pinia/user';
+	const store = userAddress();
+	// const {
+	//   updateAddress
+	// } = storeToRefs(store)
 
-	const address = ref({})
+	type Ress = {
+		provinceName: string,
+		cityName: string,
+		countyName: string,
+		detailInfo: string,
+	}
 
-	const chooseAddress = async () => {
+	let address: Ress
+	const addStr = computed(() => {
+		if (!address.provinceName) return ''
+
+		// 拼接 省，市，区，详细地址 的字符串并返回给用户
+		return address.provinceName + address.cityName + address.countyName + address.detailInfo
+
+	})
+
+	const chooseAddress = () => {
 		console.log('选择地址')
 		// 1. 调用小程序提供的 chooseAddress() 方法，即可使用选择收货地址的功能
 		//    返回值是一个数组：第 1 项为错误对象；第 2 项为成功之后的收货地址对象
@@ -53,9 +78,10 @@
 		uni.chooseAddress({
 			success(res) {
 				console.log(res)
-				// if (res.err === null && res.succ && res.succ.errMsg === 'chooseAddress:ok') {
+				// if (res.errMsg === null && res.provinceName === 'chooseAddress:ok') {
 				// 	// 为 data 里面的收货地址对象赋值
-				// 	address.value = res.succ
+				// 	address.value = res
+				// store.updateAddress(res)
 				// }
 			}
 		})
@@ -65,7 +91,7 @@
 
 
 	onLoad(() => {
-		console.log(address.value)
+		console.log(address)
 	})
 </script>
 

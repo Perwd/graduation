@@ -48,6 +48,8 @@
 		// watch,
 	} from 'vue'
 	import useBadge from "../../hook/useBadge";
+	import useCart from "../../hook/useCart";
+
 	import {
 		onLoad,
 		// onShow,
@@ -64,6 +66,9 @@
 	const {
 		setBadge
 	} = useBadge();
+	const {
+		setCart
+	} = useCart();
 
 
 
@@ -131,6 +136,7 @@
 		getHeight()
 		getCateList()
 		setBadge()
+		setCart()
 	})
 </script>
 

@@ -2,7 +2,7 @@
 	<view class="goods-item">
 		<!-- 商品左侧图片区域 -->
 		<view class="goods-item-left">
-			<radio @click="radioClickHandler" :checked="goods.goods_state" color="#C00000" v-if="showRadio"></radio>
+			<radio @click="radioClickHandler" :checked="goods.goods_state" v-if="showRadio" color="#C00000"></radio>
 			<image :src="goods.goods_small_logo || defaultPic" class="goods-pic"></image>
 		</view>
 		<!-- 商品右侧信息区域 -->
@@ -13,7 +13,7 @@
 				<!-- 商品价格 -->
 				<view class="goods-price">￥{{tofixed(goods.goods_price)}}</view>
 				<!-- 商品数量 -->
-				<uni-number-box v-if="showNum" @change="numChangeHandler" :value="goods.goods_count" :min="1" :step="1">
+				<uni-number-box v-if="showNum" @change="numChangeHandler" :value="goods.goods_count" :min="0" :step="1">
 				</uni-number-box>
 			</view>
 
@@ -130,6 +130,7 @@
 
 
 	function numChangeHandler(val: number) {
+		// 改变数字为0时，弹出删除确认框，未做
 		console.log('改变值')
 		emit('num-change', {
 			goods_id: props.goods.goods_id,
