@@ -131,17 +131,16 @@
 
 	function numChangeHandler(val: number) {
 		// 改变数字为0时，弹出删除确认框，未做
-		console.log('改变值')
+
+		// console.log('改变值')
 		emit('num-change', {
 			goods_id: props.goods.goods_id,
 			// 商品的最新数量
-			goods_count: +val
+			goods_count: val
 		})
 	}
 	onLoad(() => {
 		// console.log(
-
-
 	})
 </script>
 
