@@ -59,7 +59,7 @@
 
 
 	function clickMySearch() {
-		emit("mySearchClick", '2');
+		emit("mySearchClick", '2')
 		// console.log(name)
 		console.log('点击')
 

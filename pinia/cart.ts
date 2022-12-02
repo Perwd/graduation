@@ -63,7 +63,7 @@ export const useCounterStore =
 				console.log('pinia', context)
 
 				this.count++
-				console.log(this.count)
+				// console.log(this.count)
 				// console.log(this.type)
 				// console.log(this.name)
 			},
@@ -83,8 +83,8 @@ export const useCounterStore =
 
 
 				console.log('触发cart')
-				// console.log(this.cart)
-				this.saveToStorage()
+				console.log(this.cart)
+				// this.saveToStorage()
 			},
 			// 将购物车中的数据持久化存储到本地
 			saveToStorage() {
@@ -94,7 +94,7 @@ export const useCounterStore =
 			// 更新购物车中商品的勾选状态
 			updateGoodsState(goods: Cart) {
 				console.log(5)
-				console.log(goods)
+				// console.log(goods)
 
 				// 根据 goods_id 查询购物车中对应商品的信息对象
 				const findResult = this.cart.find((x: Cart) => x.goods_id === goods.goods_id)
@@ -102,7 +102,7 @@ export const useCounterStore =
 				// 有对应的商品信息对象
 				if (findResult) {
 
-					console.log(findResult)
+					// console.log(findResult)
 					// 更新对应商品的勾选状态
 					findResult.goods_state = goods.goods_state
 					// 持久化存储到本地
@@ -116,21 +116,31 @@ export const useCounterStore =
 				// 持久化存储到本地
 				this.saveToStorage()
 			}
-
-
-
 		},
 		getters: {
 			total: (state: any) => {
-				console.log(state)
+				// console.log(state)
 				let num = 0
 				if ((state.cart).constructor === Array) {
 					state.cart.forEach((goods: any) => num += goods.goods_count)
 					return num
 				}
-
-
 			},
+			// 勾选的商品的总数量
+			checkedCount: () => {
+
+				type It = {
+					goods_count: number
+				}
+
+				// 先使用 filter 方法，从购物车中过滤器已勾选的商品
+				// 再使用 reduce 方法，将已勾选的商品总数量进行累加
+				// reduce() 的返回值就是已勾选的商品的总数量
+				return (this as any).cart.filter((x: any) => x.goods_state)
+					.reduce((total: number, item: It) => total += item.goods_count, 0)
+			}
+
 		},
+
 
 	});
