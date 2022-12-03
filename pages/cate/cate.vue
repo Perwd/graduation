@@ -204,4 +204,22 @@
 			}
 		}
 	}
+
+	.empty-cart {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 150px;
+
+		.empty-img {
+			width: 90px;
+			height: 90px;
+		}
+
+		.tip-text {
+			font-size: 12px;
+			color: gray;
+			margin-top: 15px;
+		}
+	}
 </style>

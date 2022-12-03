@@ -238,8 +238,13 @@
 			// }
 
 			// pinia的 addToCart 方法
+			console.log('goods')
 			console.log(goods)
+			console.log(goods.goods_state)
 			store.addToCart(goods)
+
+
+
 
 		}
 	}

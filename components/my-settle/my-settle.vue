@@ -2,17 +2,17 @@
 	<!-- 最外层的容器 -->
 	<view class="my-settle-container">
 		<!-- 全选区域 -->
-		<label class="radio">
-			<radio color="#C00000" :checked="true" /><text>全选</text>
+		<label class="radio" @click="changeAllState">
+			<radio color="#C00000" :checked="isFullCheck" /><text>全选</text>
 		</label>
 
 		<!-- 合计区域 -->
 		<view class="amount-box">
-			合计:<text class="amount">￥1234.00</text>
+			合计:<text class="amount">￥{{checkedGoodsAmount}}</text>
 		</view>
 
 		<!-- 结算按钮 -->
-		<view class="btn-settle">结算(0)</view>
+		<view class="btn-settle">结算({{checkedCount}})</view>
 	</view>
 
 
@@ -21,7 +21,7 @@
 <script setup lang="ts">
 	import {
 		// ref,
-		// computed
+		computed,
 		// reactive
 	} from "vue";
 	import {
@@ -31,22 +31,32 @@
 	// 	storeToRefs
 	// } from 'pinia'
 	import {
-		// userAddress
-	} from '../../pinia/user';
-	// const store = userAddress();
-	// const {
-	//   updateAddress
-	// } = storeToRefs(store)
+		useCounterStore
+	} from '../../pinia/cart';
+	const {
+		checkedCount,
+		total,
+		checkedGoodsAmount,
+		updateAllGoodsState,
+
+	} = useCounterStore()
 
 
 
 
+	const isFullCheck = computed(() => {
+		return total === checkedCount
+	}, )
 
-
+	const changeAllState = () => {
+		// 修改购物车中所有商品的选中状态
+		// !this.isFullCheck 表示：当前全选按钮的状态取反之后，就是最新的勾选状态
+		updateAllGoodsState(!isFullCheck)
+	}
 
 
 	onLoad(() => {
-		console.log(address)
+		// console.log(address)
 	})
 </script>
 

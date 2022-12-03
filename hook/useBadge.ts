@@ -1,5 +1,5 @@
 //useCounter.js
-import { computed } from "vue";
+import { computed, watch } from "vue";
 import { useCounterStore } from '../pinia/cart';
 import { storeToRefs } from 'pinia'
 
@@ -27,6 +27,12 @@ export default function() {
 		}
 
 	}
+
+	watch(() => total, (newValue, oldValue) => {
+		console.log(newValue)
+		console.log(oldValue)
+		setBadge()
+	})
 	return {
 		count,
 		double,
