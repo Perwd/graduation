@@ -2,6 +2,8 @@
 
 <template>
 	<view>
+		<!-- 收货地址-->
+		<my-address></my-address>
 		<!-- 商品列表的标题 -->
 		<view class="cart-title">
 			<uni-icons type="shop" size="18"></uni-icons>
