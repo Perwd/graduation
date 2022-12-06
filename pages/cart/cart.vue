@@ -11,7 +11,7 @@
 		<uni-swipe-action>
 			<block v-for="(goods, i) in cart" :key="i">
 				<!-- uni-swipe-action-item 可以为其子节点提供滑动操作的效果。需要通过 options 属性来指定操作按钮的配置信息 -->
-				<uni-swipe-action-item :options="options" @click="swipeActionClickHandler(goods)">
+				<uni-swipe-action-item :right-options="options" @click="swipeActionClickHandler(goods)">
 					<my-goods :goods="goods" :show-radio="true" :show-num="true" @radio-change="radioChangeHandler"
 						@num-change="numberChangeHandler"></my-goods>
 				</uni-swipe-action-item>
@@ -30,23 +30,26 @@
 		onLoad,
 		// onReachBottom
 	} from '@dcloudio/uni-app'
-	// import {storeToRefs} from 'pinia'
+	import {
+		storeToRefs
+	} from 'pinia'
 	import useBadge from "../../hook/useBadge";
+
 	import {
 		useCounterStore
 	} from '../../pinia/cart';
-	// import {
-	// 	nextTick
-	// } from 'process';
 
-	// let goodsInfo = reactive < Object > ({})
-	// let goods = ref([])
+
 	const {
 		updateGoodsState,
 		removeGoodsById,
-		cart
+		// cart
 	} = useCounterStore()
-	// const {cart} = storeToRefs( useCounterStore())
+
+	// 使用storeToRefs 让cart具有响应式
+	const {
+		cart
+	} = storeToRefs(useCounterStore())
 
 	const {
 		setBadge
@@ -78,6 +81,9 @@
 
 		console.log(e)
 		removeGoodsById(e.goods_id)
+		// cart.value = JSON.parse(uni?.getStorageSync('cart'))
+		setBadge()
+
 	}
 
 

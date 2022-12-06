@@ -92,6 +92,7 @@ export const useCounterStore =
 			saveToStorage() {
 				console.log('数据同步存入本地')
 				uni.setStorageSync('cart', JSON.stringify(this.cart || []))
+				console.log(JSON.parse(uni?.getStorageSync('cart')))
 			},
 			// 更新购物车中商品的勾选状态
 			updateGoodsState(goods: Cart) {
@@ -118,7 +119,7 @@ export const useCounterStore =
 				this.cart = this.cart.filter((x: Cart) => x.goods_id !== goods_id)
 
 				console.log(this.cart)
-				// this.saveToStorage()
+				this.saveToStorage()
 			},
 			// 更新所有商品的勾选状态
 			updateAllGoodsState(newState: Boolean) {
