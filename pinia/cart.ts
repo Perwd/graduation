@@ -114,9 +114,11 @@ export const useCounterStore =
 				}
 			},
 			removeGoodsById(goods_id: number) {
+				console.log(goods_id)
 				this.cart = this.cart.filter((x: Cart) => x.goods_id !== goods_id)
-				// 持久化存储到本地
-				this.saveToStorage()
+
+				console.log(this.cart)
+				// this.saveToStorage()
 			},
 			// 更新所有商品的勾选状态
 			updateAllGoodsState(newState: Boolean) {
