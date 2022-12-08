@@ -20,8 +20,8 @@
 		setBadge
 	} = useBadge();
 
-	onLoad((option) => {
-		console.log(option)
+	onLoad(() => {
+		// console.log(option)
 		setBadge()
 		// console.log(typeof options)
 

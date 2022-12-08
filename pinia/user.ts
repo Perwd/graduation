@@ -32,8 +32,8 @@ export const userAddress =
 		id: 'address',
 		state: () => {
 			return {
-				address: {} as Ress,
-				// cart: uni.getStorageSync('cart') && (JSON.parse(uni?.getStorageSync('cart')) || new Array<Cart>()),
+				// address: {} as Ress,
+				address: uni.getStorageSync('address') && JSON.parse(uni.getStorageSync('address') || new Object()),
 			};
 		},
 		actions: {

@@ -57,9 +57,7 @@
 		// reactive
 	} from 'vue'
 	import {
-		onLoad,
-
-		// onReachBottom
+		onLoad
 	} from '@dcloudio/uni-app'
 	import {
 		storeToRefs
@@ -72,10 +70,18 @@
 	// import {
 	// 	useCounterStore
 	// } from '../../store/pinia.js';
+	import useBadge from "../../hook/useBadge";
+
 	import {
 		useCounterStore
 	} from '../../pinia/cart';
 	// import { Cart } from '../../pinia/store/type';
+
+	const {
+		setBadge
+	} = useBadge();
+
+
 	type GoodsType = {
 		goods_id: number,
 		goods_name: string,
@@ -270,7 +276,7 @@
 
 
 	onLoad((option) => {
-
+		setBadge()
 		// console.log(option)
 		// console.log(typeof option.goods_id)
 
