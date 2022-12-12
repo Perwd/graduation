@@ -5,15 +5,15 @@
         <view class="address-choose-box">
             <button @click="chooseAddress" type="primary" size="mini" class="btnChooseAddress">请选择收货地址+</button>
         </view>
-        <!--  v-else-->
+        <!-- v-else-->
         <!-- 渲染收货信息的盒子 -->
         <view @click="chooseAddress" class="address-info-box">
             <view class="row1">
                 <view class="row1-left">
-                    <view class="username">收货人：<text>{{address.userName}}</text></view>
+                    <view class="username">收货人：<text>{{address?.userName}}</text></view>
                 </view>
                 <view class="row1-right">
-                    <view class="phone">电话：<text>{{address.telNumber}}</text></view>
+                    <view class="phone">电话：<text>{{address?.telNumber}}</text></view>
                     <uni-icons type="arrowright" size="16"></uni-icons>
                 </view>
             </view>
@@ -48,8 +48,8 @@
         updateAddress
     } = userAddress();
     const {
-
-        address,
+        addStr,
+        address
     } = storeToRefs(userAddress())
 
 
@@ -70,19 +70,19 @@
     //     userName: '',
     //     telNumber: ''
     // })
-    // type Ress = {
-    // 	provinceName: string,
-    // 	cityName: string,
-    // 	countyName: string,
-    // 	detailInfo: string,
-    // 	userName: string,
-    // 	telNumber: string
-    // }
+    type Ress = {
+        provinceName: string,
+        cityName: string,
+        countyName: string,
+        detailInfo: string,
+        userName: string,
+        telNumber: string
+    }
 
 
 
 
-    // let address: Ress
+    // let address = ref < Ress > ()
     // const addStr = computed(() => {
     //     if (!address) return ''
 
@@ -92,11 +92,20 @@
     // })
 
     const chooseAddress = () => {
-        console.log(1)
+
         uni.chooseAddress({
             success(res) {
-                console.log(res)
-                console.log(res.userName)
+
+                address.value = res
+
+                console.log(address)
+                console.log('address')
+                console.log(addStr)
+                console.log(address.value.provinceName)
+                console.log(address.value.cityName)
+                console.log(address.value.countyName)
+                console.log(address.value.detailInfo)
+                updateAddress(address)
             },
             fail(err) {
                 if (err) reAuth()
@@ -192,8 +201,8 @@
 
 
     onLoad(() => {
-        console.log('my-address')
-        console.log(address)
+        console.log('addStr')
+        console.log(addStr)
     })
 </script>
 

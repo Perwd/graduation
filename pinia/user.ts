@@ -5,6 +5,8 @@ type Ress = {
     cityName: string,
     countyName: string,
     detailInfo: string,
+    userName: string,
+    telNumber: string
 }
 
 export const userAddress =
@@ -14,23 +16,36 @@ export const userAddress =
         state: () => {
             return {
                 // address: {} as Ress,
-                address: uni.getStorageSync('address') && JSON.parse(uni.getStorageSync('address') || new Object()),
+                address: JSON.parse(uni.getStorageSync('address') || new Object()),
+                // 登录成功之后的 token 字符串
+                token: '',
             };
         },
         actions: {
             updateAddress(address: Ress) {
                 this.address = address
+                console.log(this.address)
                 this.saveToStorage()
             },
             saveToStorage() {
                 console.log('数据同步存入本地')
-                uni.setStorageSync('address', JSON.stringify(this.address || {}))
+                uni.setStorageSync('address', JSON.stringify(this.address))
+                console.log(this.address)
+                console.log(this.addStr)
+
             },
         },
         getters: {
-            addStr: () => {
+            addStr: (state: any) => {
                 console.log('地址')
-                return (this as any).address.provinceName + (this as any).address.cityName + (this as any).address.countyName + (this as any).address.detailInfo
+                console.log(this)
+
+                console.log(uni.getStorageSync('address'))
+                if (uni.getStorageSync('address')) {
+                    return state.address.provinceName + state.address.cityName + state.address.countyName + state.address.detailInfo
+                }
+
+
             },
         },
 

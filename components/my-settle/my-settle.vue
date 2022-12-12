@@ -45,10 +45,11 @@
         updateAllGoodsState,
     } = useCounterStore()
     const {
-        addStr
+        addStr,
+        token
     } = userAddress()
 
-    let token = ''
+
 
     const isFullCheck = computed(() => {
         return total === checkedCount
