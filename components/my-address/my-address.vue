@@ -70,14 +70,7 @@
     //     userName: '',
     //     telNumber: ''
     // })
-    type Ress = {
-        provinceName: string,
-        cityName: string,
-        countyName: string,
-        detailInfo: string,
-        userName: string,
-        telNumber: string
-    }
+
 
 
 

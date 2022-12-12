@@ -44,8 +44,16 @@ export const userAddress =
                 if (uni.getStorageSync('address')) {
                     return state.address.provinceName + state.address.cityName + state.address.countyName + state.address.detailInfo
                 }
+            },
+            addStr2(): String {
+                console.log('地址')
+                console.log(this)
 
-
+                console.log(uni.getStorageSync('address'))
+                if (uni.getStorageSync('address')) {
+                    //   return this.address.provinceName + this.address.cityName + this.address.countyName + this.address.detailInfo
+                }
+                return this.address.provinceName + this.address.cityName + this.address.countyName + this.address.detailInfo
             },
         },
 
