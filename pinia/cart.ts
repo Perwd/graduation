@@ -11,14 +11,14 @@ type Cart = {
     goods_state: Boolean,
 }
 // 接口继承
-interface StateType extends TestType {
-    cart: Cart[],
-    count: number,
-    type: string,
-    // name:TestType ,
-    // id: TestType,
-    row?: object
-}
+// interface StateType extends TestType {
+//     cart: Cart[],
+//     count: number,
+//     type: string,
+//     // name:TestType ,
+//     // id: TestType,
+//     row?: object
+// }
 
 type StateType = TestType & {
     cart: Cart[],
