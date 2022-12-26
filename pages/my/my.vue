@@ -39,7 +39,7 @@
 	onLoad(() => {
 		console.log(token)
 		setBadge()
-		// console.log(typeof options)
+
 
 	})
 </script>

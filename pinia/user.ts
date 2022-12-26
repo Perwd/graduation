@@ -34,14 +34,13 @@ export const userAddress =
 		actions: {
 			updateAddress(address: Ress | {}) {
 				this.address = address
-				// console.log(this.address)
+
 				this.saveToStorage()
 			},
 			saveToStorage() {
 				console.log('地址存入本地')
 				uni.setStorageSync('address', JSON.stringify(this.address))
-				// console.log(this.address)
-				// console.log(this.addStr)
+
 			},
 			updateUserInfo(userinfo: string) {
 				this.userinfo = userinfo

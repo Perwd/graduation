@@ -29,12 +29,7 @@
 	import {
 		onShow
 	} from '@dcloudio/uni-app'
-	// type PropT = {
-	// 	bColor: string,
-	// 	raius: number | string
-	// }
 
-	type str = string | null
 
 
 	const props = defineProps({
@@ -102,7 +97,7 @@
 		updateToken(loginResult.message.token)
 
 
-		// 判断 vuex 中的 redirectInfo 是否为 null
+		// 判断 pinia 中的 redirectInfo 是否为 null
 		// 如果不为 null，则登录成功之后，需要重新导航到对应的页面
 		navigateBack()
 	}
@@ -110,11 +105,11 @@
 	// 返回登录之前的页面
 	function navigateBack() {
 		// redirectInfo 不为 null，并且导航方式为 switchTab
-		if (redirectInfo && redirectInfo?.openType === 'switchTab') {
+		if (redirectInfo && redirectInfo.value?.openType === 'switchTab') {
 			// 调用小程序提供的 uni.switchTab() API 进行页面的导航
 			uni.switchTab({
 				// 要导航到的页面地址
-				url: redirectInfo?.from,
+				url: redirectInfo.value.from || '',
 				// 导航成功之后，把  redirectInfo 对象重置为 空
 				complete: () => {
 					updateRedirectInfo({})

@@ -57,6 +57,7 @@
 		ref,
 		// reactive
 	} from "vue";
+	// 想使用响应式变量，没成功，即使用ref绑定变量之后，不用.value
 	// import {
 	// 	$ref
 	// } from 'vue/macros'
@@ -99,9 +100,9 @@
 	}]);
 
 	const floorList = ref < [FList] > ();
+
 	const {
 		setBadge
-
 	} = useBadge();
 	const {
 		setCart
@@ -147,7 +148,7 @@
 			});
 		});
 		floorList.value = res.message;
-		// console.log(floorList.value)
+
 	};
 
 	const navClickHandler = (item: Item) => {
@@ -165,17 +166,15 @@
 		});
 	}
 
-	onLoad(() => {
-		// console.log(optios)
+	onLoad((optios) => {
+		console.log(optios)
 
 		getSwiperList();
 		getNavList();
 		getFloorList();
 		setBadge()
 		setCart()
-		// console.log(count);
-		// console.log(double);
-		// console.log(setBadge);
+
 
 	});
 </script>

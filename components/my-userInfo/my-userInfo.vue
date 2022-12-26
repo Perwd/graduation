@@ -93,7 +93,7 @@
 
 
 	import {
-		storeToRefs
+		// storeToRefs
 	} from 'pinia'
 	import {
 		userAddress
@@ -106,9 +106,9 @@
 		updateUserInfo
 	} = userAddress();
 
-	const {
-		userinfo
-	} = storeToRefs(userAddress())
+	// const {
+	// userinfo
+	// } = storeToRefs(userAddress())
 	// type str = string | null
 
 	const props = defineProps({

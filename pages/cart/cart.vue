@@ -36,8 +36,7 @@
 
 <script setup lang="ts">
 	import {
-		onLoad,
-		// onReachBottom
+		onLoad
 	} from '@dcloudio/uni-app'
 	import {
 		storeToRefs
@@ -52,8 +51,8 @@
 	const {
 		updateGoodsState,
 		removeGoodsById,
-		// cart
 	} = useCounterStore()
+
 
 	// 使用storeToRefs 让cart具有响应式
 	const {
@@ -86,7 +85,7 @@
 
 	const swipeActionClickHandler = (e: any) => {
 
-		// console.log(e)
+
 		removeGoodsById(e.goods_id)
 		// cart.value = JSON.parse(uni?.getStorageSync('cart'))
 		setBadge()
@@ -95,9 +94,7 @@
 
 
 	onLoad(() => {
-
 		setBadge()
-
 	})
 </script>
 

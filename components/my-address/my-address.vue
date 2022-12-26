@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<!-- v-if="JSON.stringify(address) === '{}'"-->
+
 		<!-- 选择收货地址的盒子 -->
-		<view class="address-choose-box">
+		<view v-if="JSON.stringify(address) === '{}'" class="address-choose-box">
 			<button @click="chooseAddress" type="primary" size="mini" class="btnChooseAddress">请选择收货地址+</button>
 		</view>
-		<!-- v-else-->
+
 		<!-- 渲染收货信息的盒子 -->
-		<view @click="chooseAddress" class="address-info-box">
+		<view v-else @click="chooseAddress" class="address-info-box">
 			<view class="row1">
 				<view class="row1-left">
 					<view class="username">收货人：<text>{{address?.userName}}</text></view>
@@ -20,12 +20,12 @@
 			<view class="row2">
 				<view class="row2-left">收货地址：</view>
 				<view class="row2-right">{{addStr}}</view>
-				<!-- addStr -->
+
 			</view>
 		</view>
 
 		<!-- 底部的边框线 -->
-		<!-- <image src="/static/cart_border@2x.png" class="address-border"></image> -->
+		<image src="/static/cart_border@2x.png" class="address-border"></image>
 	</view>
 
 </template>

@@ -32,15 +32,7 @@
 		onLoad,
 		// onReachBottom
 	} from '@dcloudio/uni-app'
-	// type Goodes = {
-	//     goods_price ? : string,
-	//     goods_name ? : string,
-	//     goods_small_logo ? : string,
-	//     // goods_id ? : string,
-	//     // goods_state ? : Boolean,
-	//     showRadio ? : Boolean,
-	//     goods: Goodes2
-	// }
+
 
 	// const props: Goodes = defineProps({
 	// 	goods: {
@@ -80,6 +72,7 @@
 	// 	},
 	// })
 
+
 	// emit定义的方式
 	const emit = defineEmits(['mySearchClick', 'radio-change', 'num-change'])
 	// const emit = defineEmits < {
@@ -106,7 +99,10 @@
 		// }
 		// console.log(sendData)
 		// console.log(!props.goods.goods_state)
-		// pinia使用传输goods_state是undefine
+
+
+		//bug: pinia使用传递的goods_state有时是undefine
+
 		// 通过 this.$emit() 触发外界通过 @ 绑定的 radio-change 事件，
 		// 同时把商品的 Id 和 勾选状态 作为参数传递给 radio-change 事件处理函数
 
@@ -130,9 +126,6 @@
 			goods_count: val
 		})
 	}
-	onLoad(() => {
-		// console.log(
-	})
 </script>
 
 <style lang="scss">

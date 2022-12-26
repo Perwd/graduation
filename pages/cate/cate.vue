@@ -74,20 +74,18 @@
 
 	const getHeight = () => {
 		const statusBarHeight = uni.getSystemInfoSync().statusBarHeight
-		// console.log(statusBarHeight)
+
 		const customHeight = wx.getMenuButtonBoundingClientRect()
-		// console.log(customHeight)
+
 		const navigationBarHeight = customHeight.height + (customHeight.top - statusBarHeight) * 2
-		// console.log(navigationBarHeight)
-		// 拼接
+
 		topPadding.value = `${navigationBarHeight.value + statusBarHeight.value}px`
-		// console.log(topPadding.value)
 	}
 
 	const getCateList = async () => {
 		await uni.$http.get('/api/public/v1/categories').then(res => {
-			// console.log(1)
-			// console.log(res)
+
+
 			if (res.data.meta.status !== 200) return uni.$showMsg()
 			cateList.value = res.data.message
 			// console.log(cateList.value)

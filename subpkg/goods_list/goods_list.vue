@@ -57,9 +57,7 @@
 	}
 
 	const gotoDetail = (item: ItemData) => {
-		// console.log(item)
-		// console.log(typeof item.goods_id)
-		// console.log(Number(item.goods_id))
+
 
 		uni.navigateTo({
 			url: '/subpkg/goods_detail/goods_detail?goods_id=' + Number(item.goods_id)
@@ -71,8 +69,7 @@
 		cb && cb()
 		isLoad.value = false
 		await (uni as any).$http.get('/api/public/v1/goods/search', queryObj.value).then((res: any) => {
-			// console.log(2)
-			// console.log(res)
+
 			if (res.data.meta.status !== 200) return (uni as any).$showMsg()
 			// 为数据赋值
 			// console.log(res.data.message.goods)
@@ -82,18 +79,15 @@
 		})
 	}
 	onLoad((option: any) => {
-		// console.log(1)
-		// console.log(option)
+
+
 		cid.value = option.cid
 
 
 		imgList.value = ['1']
 
 
-		// queryObj.query = option.query || ''
-		// queryObj.cid = option.cid || ''
-		// console.log(queryObj)
-		// getGoodsList()
+
 		getGood()
 
 	})

@@ -64,7 +64,7 @@
 		updateAllGoodsState(!isFullCheck)
 	}
 
-	// 点击了结算按钮
+
 	function settlement() {
 		// 1. 先判断是否勾选了要结算的商品
 		if (!checkedCount) return (uni as any).$showMsg('请选择要结算的商品！')
@@ -98,13 +98,16 @@
 					url: '/pages/my/my',
 					// 页面跳转成功之后的回调函数
 					success: () => {
-						// 调用 vuex 的 updateRedirectInfo 方法，把跳转信息存储到 Store 中
-						updateRedirectInfo({
+						let sendData = {
 							// 跳转的方式
 							openType: 'switchTab',
 							// 从哪个页面跳转过去的
 							from: '/pages/cart/cart'
-						})
+						}
+
+
+						// 调用 pinia 的 updateRedirectInfo 方法，把跳转信息存储到 Store 中
+						updateRedirectInfo(sendData)
 					}
 				})
 
@@ -128,13 +131,6 @@
 			duration: 1500
 		})
 	}
-
-
-
-
-	onLoad(() => {
-		// console.log(address)
-	})
 </script>
 
 <style lang="scss">

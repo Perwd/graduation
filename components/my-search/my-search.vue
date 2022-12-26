@@ -20,7 +20,6 @@
 		// onUnmounted,
 		// computed,
 		// watch,
-		// PropType
 	} from 'vue'
 
 	import {
@@ -29,13 +28,14 @@
 		// onPullDownRefresh,
 		// onReachBottom,
 	} from '@dcloudio/uni-app'
+
+
 	type PropT = {
 		bColor: string,
 		raius: number | string
 	}
 	// const raius = ref < Number > (0)
-	// const props:PropType = defineProps({
-	type str = string | null
+
 
 	const props = defineProps({
 		bColor: {

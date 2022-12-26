@@ -13,8 +13,7 @@ export default function() {
 	} = storeToRefs(store)
 
 	function setBadge() {
-		// console.log('total')
-		// console.log(total.value)
+
 
 		if (typeof total.value === 'number' && total.value !== 0) {
 
@@ -22,7 +21,8 @@ export default function() {
 			uni.setTabBarBadge({
 				index: 2, // 索引
 				// 注意：text 的值必须是字符串，不能是数字
-				text: `${total.value}`
+				// text: `${total.value}`,
+				text: `${total.value}`,
 			})
 		}
 

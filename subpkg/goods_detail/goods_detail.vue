@@ -67,15 +67,12 @@
 	// 	mapState
 	// } from 'vuex'
 
-	// import {
-	// 	useCounterStore
-	// } from '../../store/pinia.js';
+
 	import useBadge from "../../hook/useBadge";
 
 	import {
 		useCounterStore
 	} from '../../pinia/cart';
-	// import { Cart } from '../../pinia/store/type';
 
 	const {
 		setBadge
@@ -130,9 +127,9 @@
 	} = storeToRefs(store)
 
 	watch(total, (newValue, oldValue) => {
-		// console.log('total', newValue)
-		// console.log('total', oldValue)
-		// console.log('options', options)
+
+		console.log('total', newValue, oldValue)
+
 		// 找到购物车按钮的配置对象存在
 		const findResult = options.find((x) => x.text === '购物车')
 
@@ -151,8 +148,6 @@
 		}, {
 			icon: 'cart',
 			text: '购物车',
-			// 右上角的信息
-			// info: null,
 			info: 0,
 		}, ])
 
@@ -171,15 +166,14 @@
 
 	function preview(i: number) {
 
-		console.log(goodsInfo.pics)
-		// console.log(typeof i)
+		// console.log(goodsInfo.pics)
+
 		// 调用 uni.previewImage() 方法预览图片
 		uni.previewImage({
 			// 预览时，默认显示图片的索引
 			current: i,
 			// 所有图片 url 地址的数组
 			urls: goodsInfo.pics.map(x => x.pics_big)
-			// urls: goods.value.map(x => x.pics_big),
 		})
 	}
 
@@ -201,12 +195,12 @@
 
 		goodsInfo = res.message
 
-		// console.log(1)
+
 		// console.log(goodsInfo.pics)
 
 		goods.value = goodsInfo.pics
 		// console.log(goods.value)
-		// console.log(goodsInfo.goods_introduce)
+
 	}
 
 
@@ -245,7 +239,6 @@
 
 			// pinia的 addToCart 方法
 			console.log('goods')
-			console.log(goods)
 			console.log(goods.goods_state)
 			store.addToCart(goods)
 
@@ -258,10 +251,10 @@
 	function getCartNum() {
 		let arr = (uni.getStorageSync('cart') && JSON.parse(uni.getStorageSync('cart'))) || []
 		// uni.getStorageSync('cart') 是个对象
-		// console.log(typeof uni.getStorageSync('cart'))
-		// console.log('get')
 
-		// console.log(arr)
+
+
+
 		let num = arr.reduce((total: number, currentValue: any, index: number) => {
 
 			// console.log(currentValue)
@@ -277,11 +270,10 @@
 
 	onLoad((option) => {
 		setBadge()
-		// console.log(option)
-		// console.log(typeof option.goods_id)
 
 
-		// console.log(store)
+
+
 		getGoodsDetail(Number(option.goods_id))
 		// getGoodsDetail(395)
 
@@ -293,9 +285,6 @@
 		options[1].info = getCartNum()
 
 
-		// console.log(uni.getStorageSync('cart'))
-		// console.log(options)
-		// console.log(options[1].info)
 
 
 		// pinia仓库的三种触发方式
