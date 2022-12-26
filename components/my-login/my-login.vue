@@ -21,7 +21,7 @@
 	} from 'vue'
 
 	import {
-		// storeToRefs
+		storeToRefs
 	} from 'pinia'
 	import {
 		userAddress
@@ -35,6 +35,7 @@
 	// }
 
 	type str = string | null
+
 
 	const props = defineProps({
 		bColor: {
@@ -51,12 +52,12 @@
 
 	const {
 		updateUserInfo,
-		updateToken
+		updateToken,
+		updateRedirectInfo
 	} = userAddress();
-	// const {
-	// 	addStr,
-	// 	address
-	// } = storeToRefs(userAddress())
+	const {
+		redirectInfo
+	} = storeToRefs(userAddress())
 
 	const emit = defineEmits(['mySearchClick'])
 
@@ -94,12 +95,32 @@
 		// 换取 token
 		const {
 			data: loginResult
-		} = await uni.$http.post('/api/public/v1/users/wxlogin', query)
+		} = await (uni as any).$http.post('/api/public/v1/users/wxlogin', query)
 		if (loginResult.meta.status !== 200) return uni.$showMsg('登录失败！')
 		uni.$showMsg('登录成功')
 
 		updateToken(loginResult.message.token)
 
+
+		// 判断 vuex 中的 redirectInfo 是否为 null
+		// 如果不为 null，则登录成功之后，需要重新导航到对应的页面
+		navigateBack()
+	}
+
+	// 返回登录之前的页面
+	function navigateBack() {
+		// redirectInfo 不为 null，并且导航方式为 switchTab
+		if (redirectInfo && redirectInfo?.openType === 'switchTab') {
+			// 调用小程序提供的 uni.switchTab() API 进行页面的导航
+			uni.switchTab({
+				// 要导航到的页面地址
+				url: redirectInfo?.from,
+				// 导航成功之后，把  redirectInfo 对象重置为 空
+				complete: () => {
+					updateRedirectInfo({})
+				}
+			})
+		}
 	}
 
 

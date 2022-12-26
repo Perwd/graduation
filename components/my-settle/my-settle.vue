@@ -43,6 +43,7 @@
 		total,
 		checkedGoodsAmount,
 		updateAllGoodsState,
+		updateRedirectInfo
 	} = useCounterStore()
 	const {
 		addStr,
@@ -50,7 +51,7 @@
 	} = userAddress()
 
 	let seconds = ref(3)
-	let timer = null
+	let timer: any = null
 
 	const isFullCheck = computed(() => {
 		return total === checkedCount
@@ -76,9 +77,12 @@
 		if (!token) return delayNavigate()
 	}
 
+
+
 	// 延迟导航到 my 页面
 	function delayNavigate() {
 
+		seconds.value = 3
 		// 1. 将定时器的 Id 存储到 timer 中
 		timer = setInterval(() => {
 			seconds.value--
@@ -91,7 +95,17 @@
 
 				// 2.2 跳转到 my 页面
 				uni.switchTab({
-					url: '/pages/my/my'
+					url: '/pages/my/my',
+					// 页面跳转成功之后的回调函数
+					success: () => {
+						// 调用 vuex 的 updateRedirectInfo 方法，把跳转信息存储到 Store 中
+						updateRedirectInfo({
+							// 跳转的方式
+							openType: 'switchTab',
+							// 从哪个页面跳转过去的
+							from: '/pages/cart/cart'
+						})
+					}
 				})
 
 				// 2.3 终止后续代码的运行（当秒数为 0 时，不再展示 toast 提示消息）
@@ -100,7 +114,7 @@
 
 			showTips(seconds.value)
 		}, 1000)
-	},
+	}
 
 
 	// 展示倒计时的提示消息
@@ -114,6 +128,8 @@
 			duration: 1500
 		})
 	}
+
+
 
 
 	onLoad(() => {

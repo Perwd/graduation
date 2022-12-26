@@ -93,11 +93,8 @@
 
 				console.log(address)
 				console.log('address')
-				console.log(addStr)
-				console.log(address.value.provinceName)
-				console.log(address.value.cityName)
-				console.log(address.value.countyName)
-				console.log(address.value.detailInfo)
+
+
 				updateAddress(address)
 			},
 			fail(err) {
@@ -119,18 +116,7 @@
 	// 	uni.chooseAddress({
 	// 		success(res) {
 	// 			console.log(res)
-	// 			console.log(res.userName)
-	// 			// console.log(res.postalCode)
-	// 			// console.log(res.provinceName)
-	// 			// console.log(res.cityName)
-	// 			// console.log(res.countyName)
-	// 			// console.log(res.detailInfo)
-	// 			// console.log(res.nationalCode)
-	// 			// console.log(res.telNumber)
 	// 			address.value = res
-	// 			// console.log(address)
-	// 			// console.log('value', address)
-	// 			// console.log(address.provinceName)
 	// 		},
 	// 		fail(err) {
 	// 			console.log('错误', err)
@@ -183,12 +169,8 @@
 				complete: function() {
 					console.log('完成')
 				},
-
 			})
-
 		}
-
-
 	}
 
 

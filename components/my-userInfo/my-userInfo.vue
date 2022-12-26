@@ -10,9 +10,7 @@
 		<view class="panel-list">
 			<!-- 第一个面板 -->
 			<view class="panel">
-				<!-- panel 的主体区域 -->
 				<view class="panel-body">
-					<!-- panel 的 item 项 -->
 					<view class="panel-item">
 						<text>8</text>
 						<text>收藏的店铺</text>
@@ -60,7 +58,6 @@
 			</view>
 
 			<!-- 第三个面板 -->
-
 			<view class="panel">
 				<view class="panel-list-item">
 					<text>收货地址</text>
@@ -93,10 +90,7 @@
 	import {
 		onShow
 	} from '@dcloudio/uni-app'
-	// type PropT = {
-	// 	bColor: string,
-	// 	raius: number | string
-	// }
+
 
 	import {
 		storeToRefs
@@ -134,20 +128,33 @@
 	// 退出登录
 	const logout = async () => {
 		// 询问用户是否退出登录
-		const [err, succ] = await uni.showModal({
+		// const [err, succ] = await uni.showModal({
+		// 	title: '提示',
+		// 	content: '确认退出登录吗？'
+		// })
+
+		uni.showModal({
 			title: '提示',
-			content: '确认退出登录吗？'
+			content: '确认退出登录吗？',
+			confirmText: "确认",
+			cancelText: "取消",
+			success: function(res) {
+				if (res) {
+					console.log('用户点击确定');
+					// 需要清空 vuex 中的 userinfo、token 和 address
+					updateUserInfo('')
+					updateToken('')
+					updateAddress({})
+				}
+			},
+			fail: function() {
+				// console.log()
+			},
+			complete: function() {
+				console.log('完成')
+			},
 		})
-
-		if (succ && succ.confirm) {
-			// 用户确认了退出登录的操作
-			// 需要清空 vuex 中的 userinfo、token 和 address
-			updateUserInfo({})
-			updateToken('')
-			updateAddress({})
-		}
 	}
-
 
 
 

@@ -13,6 +13,15 @@ $http.beforeRequest = function(options) {
 	uni.showLoading({
 		title: '数据加载中...',
 	})
+
+	// 判断请求的是否为有权限的 API 接口
+	if (options.url.indexOf('/my/') !== -1) {
+		// 为请求头添加身份认证字段
+		options.header = {
+			// 字段的值可以直接从 pinia 中进行获取
+			Authorization: token,
+		}
+	}
 }
 
 // 请求完成之后做一些事情
@@ -31,7 +40,16 @@ uni.$showMsg = function(title = '请求失败', duration = 1500) {
 import './static/iconfont.css'
 
 import store from './store/store.js'
+import {
+	userAddress
+} from './pinia/user.js'
+import {
+	storeToRefs
+} from 'pinia'
 
+const {
+	token
+} = storeToRefs(userAddress())
 
 // #ifndef VUE3
 import Vue from 'vue'

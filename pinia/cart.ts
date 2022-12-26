@@ -39,7 +39,7 @@ export const useCounterStore =
                 type: 'wxxcx',
                 name: 'wlr',
                 id: "000000",
-                row: {},
+							row: {},
                 // cart: new Array<Cart>(),
                 cart: uni.getStorageSync('cart') && (JSON.parse(uni?.getStorageSync('cart')) || new Array<Cart>()),
                 // cart: JSON.parse(uni.getStorageSync('cart') ) || new Array<Cart>(),
@@ -63,9 +63,6 @@ export const useCounterStore =
                 console.log('pinia', context)
 
                 this.count++
-                // console.log(this.count)
-                // console.log(this.type)
-                // console.log(this.name)
             },
             addToCart(goods: Cart) {
                 console.log(goods)
