@@ -39,7 +39,7 @@ uni.$showMsg = function(title = '请求失败', duration = 1500) {
 // 引入文件不能放在vue后面,否则不会显示
 import './static/iconfont.css'
 
-import store from './store/store.js'
+// import store from './store/store.js'
 import {
 	userAddress
 } from './pinia/user.js'
@@ -62,8 +62,8 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 
 const app = new Vue({
+	// store, //在uni-app框架中是不正确的
 	...App,
-	store
 })
 app.$mount()
 // #endif

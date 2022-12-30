@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia';
 import { TestType } from './store/type';
 
-type Cart = {
+export type Cart = {
 	goods_id: number,
 	goods_name: string,
 	goods_price: number,

@@ -24,14 +24,17 @@
 </template>
 
 <script setup lang="ts">
-	import {
-		// PropType
-	} from 'vue'
+	// import {
+	// PropType
+	// } from 'vue'
+	// import type {
+	// 	PropType
+	// } from 'vue'
 
-	import {
-		onLoad,
-		// onReachBottom
-	} from '@dcloudio/uni-app'
+	// import {
+	// onLoad,
+	// onReachBottom
+	// } from '@dcloudio/uni-app'
 
 
 	// const props: Goodes = defineProps({
@@ -62,7 +65,7 @@
 	})
 	// const props = defineProps({
 	// 	goods: {
-	// 		type: Object as PropType<Goodes2>, 
+	// 		type: Object as PropType < Goodes2 > ,
 	// 		default: () => {}
 	// 	},
 	// 	// 是否展示图片左侧的 radio
@@ -70,6 +73,10 @@
 	// 		type: Boolean,
 	// 		default: false,
 	// 	},
+	// 	showNum: {
+	// 		type: Boolean,
+	// 		default: false,
+	// 	}
 	// })
 
 

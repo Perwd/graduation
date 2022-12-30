@@ -38,17 +38,22 @@
 	import {
 		userAddress
 	} from '../../pinia/user';
+	import type {
+		Cart
+	} from '../../pinia/cart';
 	const {
 		checkedCount,
 		total,
 		checkedGoodsAmount,
 		updateAllGoodsState,
-		updateRedirectInfo
+		cart
 	} = useCounterStore()
+
+
 	const {
 		addStr,
 		token,
-		cart
+		updateRedirectInfo
 	} = userAddress()
 
 	let seconds = ref(3)
@@ -57,6 +62,7 @@
 	const isFullCheck = computed(() => {
 		return total === checkedCount
 	}, )
+
 
 
 	const changeAllState = () => {
@@ -147,7 +153,7 @@
 			// 写死订单总价为 1 分钱
 			order_price: 0.01,
 			consignee_addr: addStr,
-			goods: cart.filter(x => x.goods_state).map(x => ({
+			goods: cart.filter((x: Cart) => x.goods_state).map((x: Cart) => ({
 				goods_id: x.goods_id,
 				goods_number: x.goods_count,
 				goods_price: x.goods_price
@@ -156,8 +162,8 @@
 		// 1.2 发起请求创建订单
 		const {
 			data: res
-		} = await uni.$http.post('/api/public/v1/my/orders/create', orderInfo)
-		if (res.meta.status !== 200) return uni.$showMsg('创建订单失败！')
+		} = await (uni as any).$http.post('/api/public/v1/my/orders/create', orderInfo)
+		if (res.meta.status !== 200) return (uni as any).$showMsg('创建订单失败！')
 		// 1.3 得到服务器响应的“订单编号”
 		const orderNumber = res.message.order_number
 
@@ -165,11 +171,11 @@
 		// 2.1 发起请求获取订单的支付信息
 		const {
 			data: res2
-		} = await uni.$http.post('/api/public/v1/my/orders/req_unifiedorder', {
+		} = await (uni as any).$http.post('/api/public/v1/my/orders/req_unifiedorder', {
 			order_number: orderNumber
 		})
 		// 2.2 预付订单生成失败
-		if (res2.meta.status !== 200) return uni.$showError('预付订单生成失败！')
+		if (res2.meta.status !== 200) return (uni as any).$showError('预付订单生成失败！')
 		// 2.3 得到订单支付相关的必要参数
 		const payInfo = res2.message.pay
 
@@ -196,11 +202,11 @@
 		// 3.3 完成了支付，进一步查询支付的结果
 		const {
 			data: res3
-		} = await uni.$http.post('/api/public/v1/my/orders/chkOrder', {
+		} = await (uni as any).$http.post('/api/public/v1/my/orders/chkOrder', {
 			order_number: orderNumber
 		})
 		// 3.4 检测到订单未支付
-		if (res3.meta.status !== 200) return uni.$showMsg('订单未支付！')
+		if (res3.meta.status !== 200) return (uni as any).$showMsg('订单未支付！')
 		// 3.5 检测到订单支付完成
 		uni.showToast({
 			title: '支付完成！',
